@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
+    <link 
+      rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+
+    <title>IndieStream</title>
+</head>
+<body>  
+    <div class="container" >
+		<div class="row">
+			<div class="col-sm-9 col-md-7 col-lg-12 mx-auto" >
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <form class="form-signin" id="LoginFormulario" action="" method="post">
+                            <div class="mb-4">
+                                <header>
+                                    <p>Bem vindo de volta!</p>
+                                    <h1>IndieStream</h1>
+                                </header>
+                            </div>
+                            <div style="display: none" class="errors">
+                                <p>Insira as informações de login!</p>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12 center"> 
+                                    <input placeholder="E-mail" class="form-control" name="email" id="email" type="text" required autofocus>
+                                </div>			
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12 center">
+                                    <input placeholder="Senha" class="form-control" id="senha" name="senha" type="password" required>
+                                </div>
+                            </div>
+                            <button class="botao btn btn-lg btn-block text-uppercase" type="submit" name="action">Login</button>
+                            <div class="text-center">
+                                <br>
+                                <a class="small" href="">Criar conta</a>
+                            </div>
+                        </form>
+                        <div class="description">
+                            <h2>Seu streaming de músicas mais desejado.</h2>
+                            <p>parágrafo parágrafo parágrafo parágrafo parágrafo parágrafo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</body>
+</html>
