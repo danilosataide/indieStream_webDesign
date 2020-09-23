@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script>
+        $( "head" ).load( "head-html.html" );
+
+        $( "head" ).load( "head-html.html", function( response, status, xhr ) {
+            if ( status == "error" ) {
+            var msg = "Desculpe, mas ocorreu um erro: " + xhr.status + " " + xhr.statusText;
+            // $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+            alert (msg);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="page-wrapper default-theme sidebar-bg bg1 toggled page-bg-night page-bg-no-night">
+        <div id="sidebar-html"></div>
+        
+        <script>
+            $( "#sidebar-html" ).load( "sidebar-html.html" );
+        </script>
+        
+        <!-- page-content  -->
+        <main class="page-content pt-2">
+
+            <div id="navbar-html"></div>
+        
+            <script>
+                $( "#navbar-html" ).load( "navbar-html.html" );
+            </script>
+
+            <div id="overlay" class="overlay"></div>
+            <div class="container-fluid p-5">
+                <!-- COLOCAR CONTEUDO AQUI PARA BAIXO -->
+
+
+
+                
+            </div>
+            
+        </main>
+        <!-- page-content" -->
+    </div>
+    <!-- page-wrapper -->
+
+    <!-- using online scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+    </script>
+    <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- using local scripts -->
+    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
+
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+# tira o .html
+RewriteEngine On
+RewriteRule ^([0-9A-Za-z-_]+)$ /$1.html
+RewriteRule ^([^.]+)$ $1.html [NC,L]
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+).html [NC]
+RewriteRule ^ %1 [R,NC]
+
+# coloca o www
+# <IfModule mod_rewrite.c>
+# RewriteEngine on
+# RewriteCond %{HTTP_HOST} ^grupotd.cf [NC]
+# RewriteRule ^(.*)$ http://www.grupotd.cf/$1 [L,R=301]
+# </IfModule>
+
+# redireciona do site antigo para o novo
+# <IfModule mod_rewrite.c>
+# RewriteEngine on
+# RewriteCond %{HTTP_HOST} ^www.grupotd.cf [NC]
+# RewriteRule ^(.*)$ http://www.tivedorian.ga/$1 [L,R=301]
+# </IfModule>
