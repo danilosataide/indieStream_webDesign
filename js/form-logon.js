@@ -57,8 +57,8 @@ function logonAccount(){
 
   if(!aux)
   {
-    alert("Não foi possível realizar logon!");
-    
+    // alert("Não foi possível realizar logon!");
+    $('#exampleModal').modal('show');
     document.getElementById('inputEmail').value = '';
     document.getElementById('inputPassword').value = '';
   } else
@@ -66,5 +66,6 @@ function logonAccount(){
     $(location).attr('href', './home-page.html');
   }
 
+  
 
 }

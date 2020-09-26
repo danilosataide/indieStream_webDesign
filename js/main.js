@@ -67,31 +67,10 @@ jQuery(function ($) {
     $('.page-wrapper').addClass($(this).attr('data-theme'));
   });
 
-  // switch between background images
-  var bgs = 'bg1 bg2 bg3 bg4';
-  $('[data-bg]').click(function () {
-    $('[data-bg]').removeClass('selected');
-    $(this).addClass('selected');
-    $('.page-wrapper').removeClass(bgs);
-    $('.page-wrapper').addClass($(this).attr('data-bg'));
-  });
-
   // toggle background image
   $('#toggle-bg').change(function (e) {
     e.preventDefault();
     $('.page-wrapper').toggleClass('sidebar-bg');
-  });
-
-  // modo noturno
-  $('#toggle-bg-night').change(function (e) {
-    e.preventDefault();
-    $('.page-bg-night').toggleClass('page-bg-no-night');
-  });
-
-  // toggle border radius
-  $('#toggle-border-radius').change(function (e) {
-    e.preventDefault();
-    $('.page-wrapper').toggleClass('boder-radius-on');
   });
 
   //custom scroll bar is only used on desktop
