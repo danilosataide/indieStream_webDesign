@@ -128,33 +128,48 @@
                                         <hr>    
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <label>Arte de Capa</label>
-                                                <div class="input-group">
+                                                <label>Arte de Capa</label><br>
+                                                <img id='ImgUploadForm' src="./assets/placeholder-music.png" class="rounded-lg" width="125" height="125"/>
+                                            
+                                                <div class="btn-group" role="group" aria-label="Basic example">
                                                     <span class="input-group-btn">
-                                                        <span class="btn btn-light btn-file">
+                                                        <span class="btn btn-sm btn-light btn-file">
                                                             <input type="file" id="InputImgForm">
+                                                            <img src="./assets/upload.svg" alt="...">
                                                         </span>
                                                     </span>
-                                                    <!-- <input type="text" class="form-control" readonly> -->
+                                                    <span class="btn btn-sm btn-light removerImg">
+                                                        <a id="removerImg" class="">Remover imagem de capa</a>
+                                                    </span>
                                                 </div>
-                                                <a id="removerImg" class="badge badge-info">Remover imagem de capa</a>
-                                                <br>
-                                                <img id='ImgUploadForm' src="./assets/placeholder-music.png" class="rounded-lg" width="125" height="125"/>
+                                               
                                             </div>
                                             
                                             <div class="col-sm-6">
                                                 <label>Arquivo de áudio</label>
+                                                <!-- <a id="removerAudio" class="btn btn-sm btn-light">Remover imagem de capa</a>
                                                 <div class="input-group">
                                                     <span class="input-group-btn">
-                                                        <span class="btn btn-light btn-file">
+                                                        <span class="btn btn-sm btn-light btn-file">
                                                             <input type="file" id="InputAudioForm">
+                                                            <img src="./assets/music-20.svg" alt="...">
                                                         </span>
                                                     </span>
                                                 </div>
-                                                <br>
+                                                <br> -->
                                                 <audio controls="controls" id="audioPlayer">
                                                     Your browser does not support the audio element.
                                                 </audio>
+
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <span class="input-group-btn">
+                                                        <span class="btn btn-sm btn-light btn-file">
+                                                            <input type="file" id="InputAudioForm">
+                                                            <img src="./assets/music-20.svg" alt="...">
+                                                        </span>
+                                                    </span>
+                                                    <a id="removerAudio" class="btn btn-sm btn-light">Remover arquivo de áudio</a>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -403,6 +418,12 @@
             $("#removerImg").click(function () {
                 $('#ImgUploadForm').attr('src', "./assets/placeholder-music.png");
                 imgb64 = "./assets/placeholder-music.png";
+            });
+
+            // Intercepta o click do botão Remover Arquivo de Audio (ModalForm)
+            $("#removerAudio").click(function () {
+                $('#audioPlayer').attr('src', "");
+                audiob64 = "";
             });
 
             // Adiciona funções para tratar os eventos 

@@ -53,8 +53,7 @@
     opacity: 0; } }
 
 .sidebar-wrapper {
-  border-top-right-radius: 2rem;
-  /* border-bottom-right-radius: 2rem; */
+  border-top-right-radius: 1em;
   width: 280px;
   height: 100%;
   max-height: 100%;
@@ -267,7 +266,7 @@
     .sidebar-wrapper .sidebar-footer > div.pinned-footer {
       display: none; }
   .sidebar-wrapper .sidebar-footer .dropdown-menu {
-    bottom: 36px;
+    bottom: 36px;   
     left: 0 !important;
     top: initial !important;
     right: 0;

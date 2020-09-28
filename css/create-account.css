@@ -3,13 +3,14 @@
     --input-padding-y: .75rem;
     --vermelho:#E50914;
     --preta:#141414;
-    --cor_principal: #3f53e7;
-    --back-color: #dae0f8;
-    --cor_principal-hover: #3f53e7;
+    --cor_principal: #001170;
+    --back-color: #001170;
+    --cor_principal-hover: #001170;
 }
   
 body {
     background-color: #f5f5f5;
+    background-color:var(--back-color);
     /* background: url('../img/Sun-Tornado.svg') fixed; */
     /* background: linear-gradient(to bottom, #fdfdfd, #474747) fixed; */
     background-size: cover;
