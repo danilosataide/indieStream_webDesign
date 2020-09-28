@@ -10,7 +10,7 @@ var dbfake = {
         "genero":	"Ambiente",
         "clima":	"Calmo",
         "imagem": "https://4.bp.blogspot.com/-hT936X_gEr8/UzFxxXHFrRI/AAAAAAAAoeQ/rF7DUHWGXFs/s1600/Black_Keys_Turn_Blue_album_capa.jpg",
-        "audio": ""
+        "audio": "./audio/Eternal Garden - Dan Henig.mp3"
         },
         {
         "id":	2,
@@ -19,7 +19,7 @@ var dbfake = {
         "genero":	"Rock",
         "clima":	"Vibrante",
         "imagem": "https://studiosol-a.akamaihd.net/letras/272x272/albuns/9/7/6/e/678361571331412.jpg",
-        "audio": ""
+        "audio": "./audio/Buckeye Bonzai - Vans in Japan.mp3"
         }   
     ]
 }
@@ -28,16 +28,19 @@ var dbfake = {
 
 // Caso exista no Local Storage, recupera os dados salvos
 var db = JSON.parse(localStorage.getItem('musicas_cadastradas'));
-if (!db) {
+
+if (!db || db.data == '') {
     db = dbfake
+    localStorage.setItem('musicas_cadastradas', JSON.stringify(db));
 };
 console.log(db);
 // Exibe mensagem em um elemento de ID msg
 function displayMessage(msg) {
-    $('#msg').html('<div class="alert alert-warning">' + msg + '</div>');
+    $('#msg').css("display", "block");
+    $('#msg').html('<div class="alert alert-warning alert-dismissible fade show" role="alert">' + msg + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 }
 
-function insertMusicas(musicas) {
+function insertMusic(musicas) {
 
     let novoId;
 
@@ -66,10 +69,10 @@ function insertMusicas(musicas) {
 
     // Insere o novo objeto no array
     db.data.push(novaMusica);
-    displayMessage("Música inserida com sucesso");
+    // displayMessage("Música inserida com sucesso");
 
     // Atualiza os dados no Local Storage
-    localStorage.setItem('db', JSON.stringify(db));
+    localStorage.setItem('musicas_cadastradas', JSON.stringify(db));
 }
 
 function updateMusic(id, musicas) {
@@ -82,17 +85,17 @@ function updateMusic(id, musicas) {
         db.data[index].genero = musicas.genero,
         db.data[index].clima = musicas.clima,
         db.data[index].imagem = musicas.imagem,
-        db.data[index].audio = ''
+        db.data[index].audio = musicas.audio
 
     if (changed) {
         db.data[index].imagem = musicas.imagem;
         changed = false;
     }
 
-    displayMessage("Música alterada com sucesso!");
+    // displayMessage("Música alterada com sucesso!");
 
     // Atualiza os dados no Local Storage
-    localStorage.setItem('db', JSON.stringify(db));
+    localStorage.setItem('musicas_cadastradas', JSON.stringify(db));
 }
 
 function deleteMusic(id) {    
@@ -102,6 +105,20 @@ function deleteMusic(id) {
     displayMessage("Música removida com sucesso!");
 
     // Atualiza os dados no Local Storage
-    localStorage.setItem('db', JSON.stringify(db));
+    localStorage.setItem('musicas_cadastradas', JSON.stringify(db));
 }
 
+function proxIdMusic(){
+    let proxId;
+
+	// Verificar se existe algum dado no LocalStorage
+	if (db.data.length == 0) {
+		proxId = 1;
+	}
+	else {
+		// Calcula novo ID a partir do último ID existente
+		proxId = db.data[db.data.length - 1].id + 1;
+    }
+    
+    return proxId;
+}

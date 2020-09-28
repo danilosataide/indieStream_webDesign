@@ -44,7 +44,13 @@
                         <div class="col-sm-2">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" id="btnNovo">
-                                Novo registro
+                                
+                                <span>
+                                    <img src="./assets/plus.svg" alt="...">
+                                    <img src="./assets/music-24.svg" alt="...">
+                                </span>
+                                
+                                
                             </button>
                         </div>
                     </div>
@@ -66,6 +72,8 @@
                                 <div class="modal-body">
                                     <!-- <h4 id="IdForm"></h4> -->
                                     <form id="form-musicas">
+                                        <div id="msg">
+                                        </div>
                                         <div class="form-group row">
                                             <input type="text" class="form-control" id="inputIdForm" placeholder="ID" disabled hidden>
                                             <div class="col-sm-6">
@@ -117,18 +125,36 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <hr>    
                                         <div class="form-group row">
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-6">
                                                 <label>Arte de Capa</label>
                                                 <div class="input-group">
                                                     <span class="input-group-btn">
-                                                        <span class="btn btn-info btn-file">
-                                                            Upload <input type="file" id="InputImgForm">
+                                                        <span class="btn btn-light btn-file">
+                                                            <input type="file" id="InputImgForm">
                                                         </span>
                                                     </span>
                                                     <!-- <input type="text" class="form-control" readonly> -->
                                                 </div>
-                                                <img id='ImgUploadForm' src="imgs/placeholder.gif" class="rounded-lg" width="125" height="125"/>
+                                                <a id="removerImg" class="badge badge-info">Remover imagem de capa</a>
+                                                <br>
+                                                <img id='ImgUploadForm' src="./assets/placeholder-music.png" class="rounded-lg" width="125" height="125"/>
+                                            </div>
+                                            
+                                            <div class="col-sm-6">
+                                                <label>Arquivo de áudio</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <span class="btn btn-light btn-file">
+                                                            <input type="file" id="InputAudioForm">
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <br>
+                                                <audio controls="controls" id="audioPlayer">
+                                                    Your browser does not support the audio element.
+                                                </audio>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -140,10 +166,10 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="button" class="btn btn-success modoInsert" id="btnInsert" value="Inserir">
-                                    <input type="button" class="btn btn-sucess modoAlterar" id="btnUpdate" value="Alterar">
-                                    <input type="button" class="btn btn-primary modoInsert" id="btnGoDelete2" value="Excluir">
-                                    <input type="button" class="btn btn-secondary modoAlterar" id="btnClear" value="Limpar Form">
+                                    <input type="button" class="btn btn-success btn-sm modoInsert" id="btnInsert" value="Inserir">
+                                    <input type="button" class="btn btn-success btn-sm modoAlterar" id="btnUpdate" value="Alterar">
+                                    <input type="button" class="btn btn-primary btn-sm modoInsert" id="btnGoDelete2" value="Excluir">
+                                    <input type="button" class="btn btn-light btn-sm modoAlterar" id="btnClear" value="Limpar Form">
                                 </div>
                             </div>
                         </div>
@@ -169,7 +195,12 @@
                                             <h4 id="inputArtistaView"></h4>
                                             <br>
                                             <p id="pInfo"></p>
-                                            <!-- <p id="pGenero"></p><p id="pClima"></p> -->
+                                           
+                                        </div>
+                                        <div class="p-2 bd-highlight"> 
+                                            <audio controls="controls" id="audioPlayerDemo" hidden>
+                                                Your browser does not support the audio element.
+                                            </audio>
                                         </div>
                                     </div>
                                     <input type="text" class="form-control" id="inputIdView" hidden>
@@ -206,8 +237,8 @@
                                     </form> -->
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="button" class="btn btn-sucess" id="btnGoUpdate" value="Alterar">
-                                    <input type="button" class="btn btn-primary" id="btnGoDelete" value="Excluir">
+                                    <button type="button" class="btn btn-dark rounded-lg btn-sm" id="btnGoUpdate" value="Alterar"><img src="./assets/edit.svg"> Alterar</button>
+                                    <button type="button" class="btn btn-danger rounded-lg btn-sm" id="btnGoDelete" value="Excluir"><img src="./assets/trash-2.svg"> Excluir</button>
                                 </div>
                             </div>
                         </div>
@@ -254,9 +285,13 @@
             // Remove todas as linhas do corpo da tabela
             $("#table-musicas").html("");
             // Popula a tabela com os registros do banco de dados
+        
+            let buttonAlterar = `<button id="btnGoUpdate" type="button" class="btn btn-dark btn-sm mr-1 rounded-lg"><img src="./assets/edit.svg"></button>`
+            let buttonExcluir = `<button id="btnDelete" type="button" class="btn btn-danger btn-sm rounded-lg"><img src="./assets/trash-2.svg"></button>`
+
             for (i = 0; i < db.data.length; i++) {
                 let musicas = db.data[i];
-                $("#table-musicas").append(`<tr><td>${musicas.id}</td><td>${musicas.nome}</td><td>${musicas.artista}</td><td><input id="btnGoUpdate" type="button" class="btn btn-sucess" value="Alterar"><input id="btnDelete" type="button" class="btn btn-primary" value="Excluir"></td></tr>`);
+                $("#table-musicas").append(`<tr><td>${musicas.id}</td><td>${musicas.nome}</td><td>${musicas.artista}</td><td>${buttonAlterar}${buttonExcluir}</td></tr>`);
             }
         }
 
@@ -278,28 +313,59 @@
                 let id = this.childNodes[0].firstChild.nodeValue;
                 // let index = db.data.map(obj => obj.id).indexOf(parseInt(id));
                 let musicas = db.data[db.data.map(obj => obj.id).indexOf(parseInt(id))];
-                if (!isAlterar) {
+                if (id == "") {
+                    return;  
+                }
+                if (!isAlterar && !isExcluir) {
                     // alert('View');
                     // isAlterar = false;
                     $('#ModalView').modal('show');
                     $('#ModalViewTitle').text('#' + id);
                     $('#inputIdView').val(id);
-                    $('#inputNomeView').text(musicas.nome);
+                    if(musicas.audio == null || musicas.audio == ''){
+                        $('#inputNomeView').html(`${musicas.nome} <img src="./assets/volume-x.svg" alt="">`);
+                    } else {
+                        $('#inputNomeView').html(`${musicas.nome} <img src="./assets/volume-2.svg" alt="">`);
+                        $("#audioPlayerDemo").attr('src', musicas.audio);
+                        $("#audioPlayerDemo")[0].play();
+                    }
                     $('#inputArtistaView').text(musicas.artista);
                     // $('#pGenero').html(`<strong>Gênero: </strong>${musicas.genero}`);
                     // $('#pClima').html(`<strong>Clima: </strong>${musicas.clima}`);
                     $('#pInfo').html(`<strong>Gênero: </strong>${musicas.genero} - <strong>Clima: </strong>${musicas.clima}`);
                     $('#imgUploadView').attr('src', musicas.imagem);
+                    
                 } else if (isExcluir) {
-                    alert('isExcluir');
                     isExcluir = false;
+                    deleteMusic(parseInt(id));
+                    //Reexibe as musicas
+                    exibeMusicas();
                 } else {
                     if(isAlterar){
-                        alert('isAlterar');
                         isAlterar = false;
-                        modal1Update(id);
+                        modalUpdate(id);
                     }
                 }
+            });
+
+            // Intercepta o click do botão Alterar
+            $("#table-musicas").on('click', '#btnGoUpdate', function () {
+                isAlterar = true;
+            });
+
+            // Intercepta o click do botão Excluir
+            $("#table-musicas").on('click', '#btnDelete', function () {
+                isExcluir = true;
+                // let id =  $(this).parent().parent()[0].childNodes[0].firstChild.nodeValue  
+                
+                // if (id == "") {
+                //     return;  
+                // }
+            });
+
+            // Escuta o evento do fechamendo do modal ModalForm
+            $('#ModalView').on('hidden.bs.modal', function () {
+                $("#audioPlayerDemo")[0].pause();
             });
 
             // Intercepta o click do botão Limpar (ModalForm)
@@ -307,26 +373,96 @@
                 $("#form-musicas")[0].reset();
             });
 
-             // Intercepta o click do botão Alterar (ModalForm)
-             $("#btnUpdate").click(function () {
-                // $("#table-musicas").on('click', '#btnUpdate', function () {
-                // Obtem os valores dos campos do formulário
-                // let campoId = $(this).parent().parent()[0].childNodes[0].firstChild.nodeValue; 
-                let Idf = $("#inputIdForm").val();
-                // if (campoId == "") {
-                //     displayMessage("Selecione uma musica para ser alterada.");
-                //     return;
-                // }
+            // Intercepta o click do botão Novo Registro
+            $("#btnNovo").click(function () {
+                ///alert('btnNovo')
+                $("#form-musicas")[0].reset();
+                $('#ModalForm').modal('show');
+                $('#ImgUploadForm').attr('src', "./assets/placeholder-music.png");
+                $('.modoAlterar').css("display", "none");
+                $('#btnGoDelete2').css("display", "none");
+                $('#btnClear').css("display", "block");
+                $('#btnInsert').css("display", "block");
+                $('#msg').css("display", "none");
+                let proxId = proxIdMusic();
+                $('#ModalFormTitle').text(`#${proxId} - Nova música`);
+            });
+
+            // Escuta o evento do fechamendo do modal ModalForm
+            $('#ModalForm').on('hidden.bs.modal', function () {
+                $('#btnInsert').css("display", "none");
+                $('.modoAlterar').css("display", "none");
+                $('#ImgUploadForm').attr('src', "./assets/placeholder-music.png");
+                imgb64 = "./assets/placeholder-music.png";
+                $('#ModalFormTitle').text("");
+                $("#audioPlayer")[0].pause();
+                audiob64 = "";
+            });
+
+            // Intercepta o click do botão Remover Imagem de Capa (ModalForm)
+            $("#removerImg").click(function () {
+                $('#ImgUploadForm').attr('src', "./assets/placeholder-music.png");
+                imgb64 = "./assets/placeholder-music.png";
+            });
+
+            // Adiciona funções para tratar os eventos 
+            $("#btnInsert").click(function () {
+                // Verfica se o formulário está preenchido corretamente
+                if (!$('#form-musicas')[0].checkValidity()) {
+                    displayMessage("Preencha o formulário corretamente.");
+                    return;
+                }
+
+                if($("#selectGeneroForm").val() == null || $("#selectClimaForm").val() == null){
+                    displayMessage("Preencha os campos obrigatórios.");
+                    return;
+                }
+               
+                // Obtem os valores dos campos do formulários   
                 let nomef = $('#inputNomeForm').val();
                 let artistaf = $('#inputArtistaForm').val();
                 let generof = $("#selectGeneroForm").val();
                 let climaf = $('#selectClimaForm').val();
-                let imgf = imgb64;
+                let imgu = imgb64;
+                if(imgb64 == null)
+                    imgb64 = './assets/placeholder-music.png';
+                alert(imgb64)
+                alert(audiob64)
 
-                // console.log(iImg);
-                let musicas = { nome: nomef, artista: artistaf, genero: generof, clima: climaf, imagem: imgb64, audio: ''};
-                updateMusic(parseInt(Idf), musicas);
-                // Reexibe os contatos
+
+                let musica = { nome: nomef, artista: artistaf, genero: generof, clima: climaf, imagem: imgb64, audio: audiob64};
+
+                insertMusic(musica);
+                
+                // Reexibe as músicas
+                exibeMusicas();
+                // Limpa o formulario
+                $("#form-musicas")[0].reset();
+                $('#ModalForm').modal('toggle');
+            });
+
+            // Intercepta o click do botão Alterar (ModalForm)
+            $("#btnUpdate").click(function () {
+                // $("#table-musicas").on('click', '#btnUpdate', function () {
+                // Obtem os valores dos campos do formulário
+                // let campoId = $(this).parent().parent()[0].childNodes[0].firstChild.nodeValue; 
+                let Idu = $("#inputIdForm").val();
+                // if (campoId == "") {
+                //     displayMessage("Selecione uma musica para ser alterada.");
+                //     return;
+                // }
+                let nomeu = $('#inputNomeForm').val();
+                let artistau = $('#inputArtistaForm').val();
+                let generou = $("#selectGeneroForm").val();
+                let climau = $('#selectClimaForm').val();
+                let imgu = imgb64;
+                let audiou = audiob64;
+                alert(audiob64)
+
+                // console.log(iImg);                   
+                let musica = { nome: nomeu, artista: artistau, genero: generou, clima: climau, imagem: imgb64, audio: audiou};
+                updateMusic(parseInt(Idu), musica);
+                // Reexibe as músicas
                 exibeMusicas();
                 // Limpa o formulario
                 $("#form-musicas")[0].reset();
@@ -362,7 +498,7 @@
             let musicas = db.data[db.data.map(obj => obj.id).indexOf(parseInt(id))];
             $('#ModalForm').modal('show');
             $('.modoInsert').css("display", "none");
-            // $('.modoAlterar').css("display", "block");
+            $('.modoAlterar').css("display", "block");
             $('#ModalFormTitle').text(`#${id} - Alterar música`);
             $('#inputIdForm').val(id);
             // $('#IdForm').text('#' + id);
@@ -372,6 +508,9 @@
             $('#selectClimaForm').val(musicas.clima);
             $('#ImgUploadForm').attr('src', musicas.imagem);
             imgb64 = musicas.imagem;
+
+            $('#audioPlayer').attr('src', musicas.audio);
+            audiob64 = musicas.audio;
         }
 
     </script>
@@ -390,7 +529,9 @@
 
     <script>
         var imgb64 = null;
+        var audiob64 = null;
         var changed = false;
+        var changedAudio = false;
 
         $(document).ready(function () {
             $(document).on('change', '.btn-file :file', function () {
@@ -411,6 +552,7 @@
                 }
 
             });
+
             function readURL(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -426,6 +568,23 @@
             $("#InputImgForm").change(function () {
                 changed = true;
                 readURL(this);
+            });
+
+            function readAudio(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        audiob64 = e.target.result;
+                        $('#audioPlayer').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#InputAudioForm").change(function () {
+                changedAudio = true;
+                readAudio(this);
             });
         });
     </script>
