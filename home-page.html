@@ -50,17 +50,28 @@
 
                 <div class="row mt-5">
                     <!-- Músicas favoritas -->
-                    <div class="col-lg grid-favoritos pbshadow" >
-                        <h3>Favoritos</h3>
-                        <span>10 músicas</span>
-                        <div class="list-group mt-3">
-                            <a href="#" class="list-group-item list-group-item-action active">
-                                Cras justo odio
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                            <a href="#" class="list-group-item list-group-item-action">Vestibulum at eros</a>
+                    <div class="col-lg grid-favoritos pbshadow responsive">
+                        <div class="table-responsive-xl">
+                            <h3>Favoritos</h3>
+                            <span class="descricao">10 músicas</span>
+                            <table id="table-favoritos" class="table table-borderless table-hover display">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th> <!-- Botão de play -->
+                                        <th scope="col">Título</th>
+                                        <th scope="col">Artista</th>
+                                        <th scope="col">Gênero/Clima</th><!-- Botão de favorito -->
+                                    </tr>
+                                </thead>
+                                <tbody id="table-musicas-favoritas">
+                                    <!-- <tr>
+                                        <td scope="row"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <!-- Faixa atual -->
@@ -68,11 +79,39 @@
                         One of three columns
                     </div>
                 </div>
-            
             </div>
-            
+
+            <!-- <nav class="navbar sticky-top position-relative navbar-expand-sm navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Bottom navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                    <li class="nav-item dropup">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropup</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown10">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    </ul>
+                </div>
+            </nav> -->
+
         </main>
         <!-- page-content" -->
+        
     </div>
     <!-- page-wrapper -->
 
@@ -85,6 +124,98 @@
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
     </script>
     <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="js/fakedb.js"></script> 
+
+    <script>
+        var dbtable = {
+            "data": []
+        }
+
+        if(db_favoritos_doUsuario != null ){
+            console.log(db_favoritos_doUsuario.data.length)
+            for (i = 0; i < db_favoritos_doUsuario.data.length; i++) {
+                let musica = db_favoritos_doUsuario.data[i];
+                let buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img src="./assets/edit.svg"></a>';
+                let music = [ buttonFavoritar, musica.nome, musica.artista, musica.genero ];
+                dbtable.data.push(music);
+                // console.log(dbtable.data)
+            }
+        }
+        
+
+        // Intercepta o click do botão Excluir
+        // $("#table-favoritos").on('click', '#btnFavoritar', function () {
+        //     alert('favoritar/desfavoritar')
+        //     let id =  $(this).parent().parent()[0].childNodes[0].firstChild.nodeValue;
+        //     // if (id == "") {
+        //     //     return;  
+        //     // }
+        // });
+
+        // $("#table-favoritos").on("click", "tr", "td", function (e) {
+        //         let id = this.childNodes[0].firstChild.nodeValue;
+        //         console.log(this.childNodes[0].firstChild.nodeValue);
+        //         alert(id)
+        // });
+
+        function favoritar(id) {
+            alert(id)
+        }
+
+        $(document).ready(function() {
+            $('#table-favoritos').DataTable({
+                "data": dbtable.data,
+                "scrollY": 250,
+                "scrollCollapse": true,
+                "paging": false,
+                "info": false,
+                "language": {
+                    "search": "Filtrar",
+                    "lengthMenu": "Display _MENU_ records per page",
+                    "zeroRecords": "Você não possui nenhuma música favorita!",
+                    "info": "Exibindo página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhuma música disponível!",
+                    "infoFiltered": "(filtered from _MAX_ total records)"
+                },
+                "columnDefs": [ 
+                    {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                    } 
+                ],
+                "order": [[ 1, 'asc' ]]
+            });
+            // exibeMusicas();
+        });
+
+        // function exibeMusicas() {
+        //     // Remove todas as linhas do corpo da tabela
+        //     $("#table-musicas-favoritas").html("");
+        //     // Popula a tabela com os registros do banco de dados
+            
+        //     // let buttonAlterar = `<button id="btnGoUpdate" type="button" class="btn btn-dark btn-sm mr-1 rounded-lg"><img src="./assets/edit.svg"></button>`
+        //     // let buttonExcluir = `<button id="btnDelete" type="button" class="btn btn-danger btn-sm rounded-lg"><img src="./assets/trash-2.svg"></button>`
+            
+        //     for (i = 0; i < musicas_cadastradas.data.length; i++) {
+        //         let musicas = musicas_cadastradas.data[i];
+        //         $("#table-musicas-favoritas").append(
+        //             `<tr>
+        //                 <td>${musicas.id}</td>
+        //                 <td>${musicas.nome}</td>
+        //                 <td>${musicas.artista}</td>
+        //                 <td>dsadsa</td>
+        //             </tr>`
+        //         );
+        //     }
+        // }
+
+    </script> 
 
     <!-- using local scripts -->
     <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>

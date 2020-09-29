@@ -210,7 +210,6 @@
                                             <h4 id="inputArtistaView"></h4>
                                             <br>
                                             <p id="pInfo"></p>
-                                           
                                         </div>
                                         <div class="p-2 bd-highlight"> 
                                             <audio controls="controls" id="audioPlayerDemo" hidden>
@@ -218,6 +217,7 @@
                                             </audio>
                                         </div>
                                     </div>
+                                    <div id="waveform"></div>
                                     <input type="text" class="form-control" id="inputIdView" hidden>
                                     <!-- <form id="form-musicas">
 
@@ -292,7 +292,22 @@
 
     <script src="js/fakedb.js"></script> 
     
+    <!-- wavesurfer.js -->
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+
+    <!-- media session plugin -->
+    <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.mediasession.js"></script>
+
     <script>
+        var wavesurfer = WaveSurfer.create({
+            container: '#waveform',
+            scrollParent: false,
+            autoCenter: true,
+            mediaControls: true,
+            waveColor: '#0427ee',
+            progressColor: '#01064B'
+        });
+
         var isAlterar = false;
         var isExcluir = false;
 
@@ -304,8 +319,8 @@
             let buttonAlterar = `<button id="btnGoUpdate" type="button" class="btn btn-dark btn-sm mr-1 rounded-lg"><img src="./assets/edit.svg"></button>`
             let buttonExcluir = `<button id="btnDelete" type="button" class="btn btn-danger btn-sm rounded-lg"><img src="./assets/trash-2.svg"></button>`
 
-            for (i = 0; i < db.data.length; i++) {
-                let musicas = db.data[i];
+            for (i = 0; i < musicas_cadastradas.data.length; i++) {
+                let musicas = musicas_cadastradas.data[i];
                 $("#table-musicas").append(`<tr><td>${musicas.id}</td><td>${musicas.nome}</td><td>${musicas.artista}</td><td>${buttonAlterar}${buttonExcluir}</td></tr>`);
             }
         }
@@ -326,8 +341,8 @@
             // Preenche o formulário (modal) quando o usuario clicar em uma linha da tabela 
             $("#grid-musicas").on("click", "tr", "td", function (e) {
                 let id = this.childNodes[0].firstChild.nodeValue;
-                // let index = db.data.map(obj => obj.id).indexOf(parseInt(id));
-                let musicas = db.data[db.data.map(obj => obj.id).indexOf(parseInt(id))];
+                // let index = musicas_cadastradas.data.map(obj => obj.id).indexOf(parseInt(id));
+                let musicas = musicas_cadastradas.data[musicas_cadastradas.data.map(obj => obj.id).indexOf(parseInt(id))];
                 if (id == "") {
                     return;  
                 }
@@ -342,13 +357,20 @@
                     } else {
                         $('#inputNomeView').html(`${musicas.nome} <img src="./assets/volume-2.svg" alt="">`);
                         $("#audioPlayerDemo").attr('src', musicas.audio);
-                        $("#audioPlayerDemo")[0].play();
+                        // $("#audioPlayerDemo")[0].play();
+        
+                        wavesurfer.load(musicas.audio);
+                        wavesurfer.on('ready', function () {
+                            wavesurfer.play();
+                        });
                     }
                     $('#inputArtistaView').text(musicas.artista);
                     // $('#pGenero').html(`<strong>Gênero: </strong>${musicas.genero}`);
                     // $('#pClima').html(`<strong>Clima: </strong>${musicas.clima}`);
                     $('#pInfo').html(`<strong>Gênero: </strong>${musicas.genero} - <strong>Clima: </strong>${musicas.clima}`);
                     $('#imgUploadView').attr('src', musicas.imagem);
+
+                    
                     
                 } else if (isExcluir) {
                     isExcluir = false;
@@ -380,7 +402,8 @@
 
             // Escuta o evento do fechamendo do modal ModalForm
             $('#ModalView').on('hidden.bs.modal', function () {
-                $("#audioPlayerDemo")[0].pause();
+                // $("#audioPlayerDemo")[0].pause();
+                wavesurfer.pause()
             });
 
             // Intercepta o click do botão Limpar (ModalForm)
@@ -516,7 +539,7 @@
         }
 
         function modalUpdate(id) {
-            let musicas = db.data[db.data.map(obj => obj.id).indexOf(parseInt(id))];
+            let musicas = musicas_cadastradas.data[musicas_cadastradas.data.map(obj => obj.id).indexOf(parseInt(id))];
             $('#ModalForm').modal('show');
             $('.modoInsert').css("display", "none");
             $('.modoAlterar').css("display", "block");

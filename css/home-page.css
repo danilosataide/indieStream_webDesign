@@ -1,28 +1,68 @@
 body {
     background-color: #01064B;
+    height: 100%;
     /* background-color: white; */
 }
 
 .grid-filtrados, .grid-favoritos, .grid-player {
-    padding: 1rem;
+    padding: 0rem;
+    color: white;
 }
 
 .grid-favoritos {
-    margin-right: 1rem;
+    margin-right: 2rem;
 }
 
 .grid-player {
-    margin-left: 1rem;
+    margin-left: 2rem;
 }
 
 .pbshadow {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 0.5em;
-    -webkit-box-shadow: 0px 0px 28px 15px #001170;
-    -moz-box-shadow: 0px 0px 28px 15px#001170;
-    box-shadow: 0px 0px 28px 15px #001170;
+    background-color: #001170;
+    padding: 1rem;
+    border-radius: 1em;
+    background-color: transparent;
+    -webkit-box-shadow: 0px 0px 10px 10px #001170;
+    -moz-box-shadow: 0px 0px 10px 10px #001170;
+    box-shadow: 0px 0px 0px 10px 10px #001170;
     /* box-shadow: 1rem 1rem 1rem 1rem #001170; */
+}
+
+th{
+    color:white;
+}
+
+#table-favoritos {
+    color:white;
+    background-color: transparent;
+    margin: 0px;
+    padding: 0rem;
+}
+
+#table-favoritos tbody tr:hover {
+    color:white;
+}
+
+h3 {
+    text-align: left;
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 0px;
+    font-size: 22px;
+}
+
+
+a.list-group-item {
+    border-bottom: 1px solid #001170;
+}
+
+a.list-group-item:first-child {
+    border-top: 1px solid #001170;
+}
+
+.descricao{
+    color:white;
+    margin-top: 0px;
+    font-size: 14px;
 }
 
 @media(max-width: 800px) {

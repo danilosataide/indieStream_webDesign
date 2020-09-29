@@ -38,19 +38,20 @@ $( "#form-logon" ).validate({
 function logonAccount(){
   usuarios_cadastrados = JSON.parse(localStorage.getItem('usuarios_cadastrados'));
 
-  // if (usuarios_cadastrados == null){
-  //     var usuarios_cadastrados = new Array();
-  // }	
+  if (usuarios_cadastrados == null){
+      var usuarios_cadastrados = new Array();
+  }	
 
   var email_form = document.getElementById('inputEmail').value;
   var password_form = document.getElementById('inputPassword').value;
   var aux = false;
 
-  for (var i = 0; i < usuarios_cadastrados.length; i++)
+  for (var i = 0; i < usuarios_cadastrados.data.length; i++)
   {
-    if ((usuarios_cadastrados[i].email == email_form) && (usuarios_cadastrados[i].password == password_form))
+    if ((usuarios_cadastrados.data[i].email == email_form) && (usuarios_cadastrados.data[i].password == password_form))
     {
         aux = true;
+        usuarioLogado(usuarios_cadastrados.data[i]);
         break;
     }
   }
@@ -65,7 +66,24 @@ function logonAccount(){
   {
     $(location).attr('href', './home-page.html');
   }
+}
+
+function usuarioLogado(usuario) {
+  usuario_logado = JSON.parse(localStorage.getItem('usuario_logado'));
+
+  if (usuario_logado == null){
+    usuario_logado = {
+      "data": [  
+          {
+          "id": usuario.id,
+          }
+      ]
+    }
+  }	else {
+    usuario_logado.data[0].id = usuario.id;
+  }
 
   
 
+  localStorage.setItem('usuario_logado', JSON.stringify(usuario_logado));
 }

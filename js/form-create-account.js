@@ -61,6 +61,26 @@ jQuery.validator.setDefaults({
     submitHandler: createAccount,
 });
 
+var usuarios_admin = {
+    "data": [  
+        {
+        "id": 1,
+        "nome": "Usuário",
+        "sobrenome": "Admin",
+        "email": "admin@admin.com",
+        "password": "admin"
+        }
+    ]
+}
+
+// Caso exista no Local Storage, recupera os dados salvos
+var usuarios_cadastrados = JSON.parse(localStorage.getItem('musicas_cadastradas'));
+
+if (!usuarios_cadastrados || usuarios_cadastrados.data == '') {
+    usuarios_cadastrados = usuarios_admin
+    localStorage.setItem('usuarios_cadastrados', JSON.stringify(usuarios_cadastrados));
+};
+
 function createAccount() { 
     // alert("Submitted!")
     usuarios_cadastrados = JSON.parse(localStorage.getItem('usuarios_cadastrados'));
@@ -69,14 +89,31 @@ function createAccount() {
         var usuarios_cadastrados = new Array();
     }	
 
-    var usuario = new Object();
+    let novoId;
 
-    usuario.nome = $('#inputNome').val();
-    usuario.sobrenome = $('#inputSobrenome').val();
-    usuario.email = $('#inputEmail').val();
-    usuario.password = $('#inputPassword').val();
+	// Verificar se existe algum dado no LocalStorage
+	if (usuarios_cadastrados.data.length == 0) {
+		novoId = 1;
+	}
+	else {
+		// Calcula novo ID a partir do último ID existente
+		novoId = usuarios_cadastrados.data[usuarios_cadastrados.data.length - 1].id + 1;
+    }
 
-    usuarios_cadastrados.push(usuario); 
+    let novoUsuario = {
+        "id": novoId,
+        "nome": $('#inputNome').val(),
+        "sobrenome": $('#inputSobrenome').val(),
+        "email": $('#inputEmail').val(),
+        "password": $('#inputPassword').val()
+    };
+    
+    // novoUsuario.nome = $('#inputNome').val();
+    // novoUsuario.sobrenome = $('#inputSobrenome').val();
+    // novoUsuario.email = $('#inputEmail').val();
+    // novoUsuario.password = $('#inputPassword').val();
+
+    usuarios_cadastrados.data.push(novoUsuario); 
     
     localStorage.setItem('usuarios_cadastrados', JSON.stringify(usuarios_cadastrados));			
     alert('Cadastro realizado com sucesso!')

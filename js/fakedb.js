@@ -24,16 +24,37 @@ var dbfake = {
     ]
 }
 
+var dbfake_musicas_favoritos = {
+    "data": [
+        {
+        "id_usuario":	2,
+        "id_musica":	1,
+        },
+        {
+        "id_usuario":	2,
+        "id_musica":	2,
+        }   
+    ]
+}
 
 
 // Caso exista no Local Storage, recupera os dados salvos
-var db = JSON.parse(localStorage.getItem('musicas_cadastradas'));
+var musicas_cadastradas = JSON.parse(localStorage.getItem('musicas_cadastradas'));
+var musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
 
-if (!db || db.data == '') {
-    db = dbfake
-    localStorage.setItem('musicas_cadastradas', JSON.stringify(db));
+var db_favoritos_doUsuario = buscarFavoritosPeloUsuario();
+
+if (!musicas_cadastradas || musicas_cadastradas.data == '') {
+    musicas_cadastradas = dbfake
+    localStorage.setItem('musicas_cadastradas', JSON.stringify(musicas_cadastradas));
 };
-console.log(db);
+
+if (!musicas_favoritos || musicas_favoritos.data == '') {
+    musicas_favoritos = dbfake_musicas_favoritos
+    localStorage.setItem('musicas_favoritos', JSON.stringify(musicas_favoritos));
+};
+
+// console.log(musicas_cadastradas);
 // Exibe mensagem em um elemento de ID msg
 function displayMessage(msg) {
     $('#msg').css("display", "block");
@@ -45,15 +66,15 @@ function insertMusic(musicas) {
     let novoId;
 
 	// Verificar se existe algum dado no LocalStorage
-	if (db.data.length == 0) {
+	if (musicas_cadastradas.data.length == 0) {
 		novoId = 1;
 	}
 	else {
 		// Calcula novo ID a partir do último ID existente
-		novoId = db.data[db.data.length - 1].id + 1;
+		novoId = musicas_cadastradas.data[musicas_cadastradas.data.length - 1].id + 1;
 	}
     // Calcula novo Id a partir do último código existente no array
-    // novoId = db.data[db.data.length - 1].id + 1;
+    // novoId = musicas_cadastradas.data[musicas_cadastradas.data.length - 1].id + 1;
     
     let novaMusica = {
         "id": novoId,
@@ -68,57 +89,81 @@ function insertMusic(musicas) {
     console.log(novaMusica)
 
     // Insere o novo objeto no array
-    db.data.push(novaMusica);
+    musicas_cadastradas.data.push(novaMusica);
     // displayMessage("Música inserida com sucesso");
 
     // Atualiza os dados no Local Storage
-    localStorage.setItem('musicas_cadastradas', JSON.stringify(db));
+    localStorage.setItem('musicas_cadastradas', JSON.stringify(musicas_cadastradas));
 }
 
 function updateMusic(id, musicas) {
     // Localiza o indice do objeto a ser alterado no array a partir do seu ID
-    let index = db.data.map(obj => obj.id).indexOf(id);
+    let index = musicas_cadastradas.data.map(obj => obj.id).indexOf(id);
 
     // Altera os dados do objeto no array
-    	db.data[index].nome = musicas.nome,
-        db.data[index].artista = musicas.artista,
-        db.data[index].genero = musicas.genero,
-        db.data[index].clima = musicas.clima,
-        db.data[index].imagem = musicas.imagem,
-        db.data[index].audio = musicas.audio
+    	musicas_cadastradas.data[index].nome = musicas.nome,
+        musicas_cadastradas.data[index].artista = musicas.artista,
+        musicas_cadastradas.data[index].genero = musicas.genero,
+        musicas_cadastradas.data[index].clima = musicas.clima,
+        musicas_cadastradas.data[index].imagem = musicas.imagem,
+        musicas_cadastradas.data[index].audio = musicas.audio
 
     if (changed) {
-        db.data[index].imagem = musicas.imagem;
+        musicas_cadastradas.data[index].imagem = musicas.imagem;
         changed = false;
     }
 
     // displayMessage("Música alterada com sucesso!");
 
     // Atualiza os dados no Local Storage
-    localStorage.setItem('musicas_cadastradas', JSON.stringify(db));
+    localStorage.setItem('musicas_cadastradas', JSON.stringify(musicas_cadastradas));
 }
 
 function deleteMusic(id) {    
     // Filtra o array removendo o elemento com o id passado
-    db.data = db.data.filter(function (element) { return element.id != id });
+    musicas_cadastradas.data = musicas_cadastradas.data.filter(function (element) { return element.id != id });
 
     displayMessage("Música removida com sucesso!");
 
     // Atualiza os dados no Local Storage
-    localStorage.setItem('musicas_cadastradas', JSON.stringify(db));
+    localStorage.setItem('musicas_cadastradas', JSON.stringify(musicas_cadastradas));
 }
 
 function proxIdMusic(){
     let proxId;
 
 	// Verificar se existe algum dado no LocalStorage
-	if (db.data.length == 0) {
+	if (musicas_cadastradas.data.length == 0) {
 		proxId = 1;
 	}
 	else {
 		// Calcula novo ID a partir do último ID existente
-		proxId = db.data[db.data.length - 1].id + 1;
+		proxId = musicas_cadastradas.data[musicas_cadastradas.data.length - 1].id + 1;
     }
     
     return proxId;
+}
+
+function buscarFavoritosPeloUsuario(){
+    var favoritos = {
+        "data": [   
+        ]
+    }
+    
+    usuario_logado = JSON.parse(localStorage.getItem('usuario_logado'));
+ 
+    for (var i = 0; i < musicas_favoritos.data.length; i++){
+        if (musicas_favoritos.data[i].id_usuario == usuario_logado.data[0].id)
+        {
+            console.log(musicas_favoritos.data[i].id_musica)
+            let musica = buscarMusicaPorId(musicas_favoritos.data[i].id_musica);
+            favoritos.data.push(musica);
+        }
+    }
+    return favoritos;
+}
+
+function buscarMusicaPorId(id){
+    let index = musicas_cadastradas.data.map(obj => obj.id).indexOf(id);
+    return musicas_cadastradas.data[index];
 }
