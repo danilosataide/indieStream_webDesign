@@ -41,26 +41,34 @@
                 <!-- <h1>MUSICAS AQUIII</h1> -->
 
                 <!-- Músicas filtradas por gênero e clima -->
-                <div class="row mt-3">
+                <div class="row">
                     <div class="col-md grid-filtrados pbshadow">
-                        One of three columns
+                        <h3>Todos os estilos</h3>
+                        <span class="descricao_estilos">10 músicas</span>
+                        <div class="teste">
+                            <div>
+                                <h3>1</h3>
+                                <img style="border-radius: 1em;" src="./img/user.jpg" class="card-img-top" alt="...">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
 
-                <div class="row mt-5">
+                <div class="row mt-3">
                     <!-- Músicas favoritas -->
                     <div class="col-lg grid-favoritos pbshadow responsive">
                         <div class="table-responsive-xl">
-                            <h3>Favoritos</h3>
-                            <span class="descricao">10 músicas</span>
+                            <h3>Seus Favoritos</h3>
+                            <span class="descricao_favoritos">10 músicas</span>
                             <table id="table-favoritos" class="table table-borderless table-hover display">
                                 <thead>
                                     <tr>
                                         <th scope="col"></th> <!-- Botão de play -->
                                         <th scope="col">Título</th>
                                         <th scope="col">Artista</th>
-                                        <th scope="col">Gênero/Clima</th><!-- Botão de favorito -->
+                                        <th scope="col">Gênero, Clima</th><!-- Botão de favorito -->
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-musicas-favoritas">
@@ -127,28 +135,96 @@
 
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script> 
 
-    <script src="js/fakedb.js"></script> 
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="./slick/slick.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            exibeMusicasFavoritas();
+            exibeMusicas();
+
+            $('.teste').slick({
+                "infinite": true,
+                "slidesToShow": 7, 
+                "slidesToScroll": 7,
+                "ots": true,
+                "dots": true,
+                responsive: [
+                    {
+                    breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 6,
+                            slidesToScroll: 6,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                    breakpoint: 900,
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 5,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                    breakpoint: 800,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 4,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                    breakpoint: 700,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        }
+                    },
+                    {
+                    breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                    breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+
         var dbtable = {
             "data": []
         }
 
-        if(db_favoritos_doUsuario != null ){
-            console.log(db_favoritos_doUsuario.data.length)
-            for (i = 0; i < db_favoritos_doUsuario.data.length; i++) {
-                let musica = db_favoritos_doUsuario.data[i];
-                let buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img src="./assets/edit.svg"></a>';
-                let music = [ buttonFavoritar, musica.nome, musica.artista, musica.genero ];
-                dbtable.data.push(music);
-                // console.log(dbtable.data)
-            }
-        }
+        // if(db_favoritos_doUsuario != null ){
+        //     console.log(db_favoritos_doUsuario.data.length)
+        //     for (i = 0; i < db_favoritos_doUsuario.data.length; i++) {
+        //         let musica = db_favoritos_doUsuario.data[i];
+        //         let buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img src="./assets/star.svg"></a>';
+        //         let buttonPlay = '<a id="btnPlay" onclick="play(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img src="./assets/play.svg"></a>';
+                
+        //         let music = [ buttonFavoritar, musica.nome, musica.artista, musica.genero, buttonPlay ];
+        //         dbtable.data.push(music);
+        //         // console.log(dbtable.data)
+        //     }
+        // }
         
-
-        // Intercepta o click do botão Excluir
+        // Intercepta o click do botão btnFavoritar
         // $("#table-favoritos").on('click', '#btnFavoritar', function () {
         //     alert('favoritar/desfavoritar')
         //     let id =  $(this).parent().parent()[0].childNodes[0].firstChild.nodeValue;
@@ -164,56 +240,120 @@
         // });
 
         function favoritar(id) {
-            alert(id)
+            var url_image = $("#favorite"+id).attr('src');
+            // alert(url_image);
+            switch (url_image) {
+                case "../assets/star-fill.svg"://estado atual: favorito
+                    if(removerFatoritoPorUsuario(id)){
+                        document.getElementById("favorite"+id).src ="../assets/star.svg";
+                        exibeMusicasFavoritas();
+                    }
+                    break;
+                case "../assets/star.svg"://estado atual: não favorito
+                    if(adicionarFatoritoPorUsuario(id)){
+                        document.getElementById("favorite"+id).src ="../assets/star-fill.svg";
+                        exibeMusicasFavoritas();
+                    }
+                    break;
+                default:
+                    alert("failed")
+                    break;
+            }
+            
         }
 
-        $(document).ready(function() {
-            $('#table-favoritos').DataTable({
-                "data": dbtable.data,
-                "scrollY": 250,
-                "scrollCollapse": true,
-                "paging": false,
-                "info": false,
-                "language": {
-                    "search": "Filtrar",
-                    "lengthMenu": "Display _MENU_ records per page",
-                    "zeroRecords": "Você não possui nenhuma música favorita!",
-                    "info": "Exibindo página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Nenhuma música disponível!",
-                    "infoFiltered": "(filtered from _MAX_ total records)"
-                },
-                "columnDefs": [ 
-                    {
-                    "searchable": false,
-                    "orderable": false,
-                    "targets": 0
-                    } 
-                ],
-                "order": [[ 1, 'asc' ]]
-            });
-            // exibeMusicas();
-        });
+        // $(document).ready(function() {
+            // $('#table-favoritos').DataTable({
+            //     "data": dbtable.data,
+            //     "scrollY": 250,
+            //     "scrollCollapse": true,
+            //     "paging": false,
+            //     "info": false,
+            //     "language": {
+            //         "search": "Filtrar",
+            //         "lengthMenu": "Display _MENU_ records per page",
+            //         "zeroRecords": "Você não possui nenhuma música favorita!",
+            //         "info": "Exibindo página _PAGE_ de _PAGES_",
+            //         "infoEmpty": "Nenhuma música disponível!",
+            //         "infoFiltered": "(filtered from _MAX_ total records)"
+            //     },
+            //     "columnDefs": [ 
+            //         {
+            //         "searchable": false,
+            //         "orderable": false,
+            //         "targets": 0
+            //         },
+            //         {
+            //         "orderable": false,
+            //         "targets": 1
+            //         },
+            //         {
+            //         "orderable": false,
+            //         "targets": 2
+            //         },
+            //         {
+            //         "orderable": false,
+            //         "targets": 3
+            //         } 
+            //     ],
+            //     "order": [[ 1, 'asc' ]]
+            // });
+            // exibeMusicasFavoritas();
+        // });
+        
+        function exibeMusicasFavoritas() {
+            // Remove todas as linhas do corpo da tabela
+            $("#table-musicas-favoritas").html("");
+            // Popula a tabela com os registros do banco de dados
+            db_favoritos_doUsuario = buscarFavoritosPeloUsuario();
+            if(db_favoritos_doUsuario != null ){
+                $(".descricao_favoritos").text(db_favoritos_doUsuario.data.length + " músicas");
+                for (i = 0; i < db_favoritos_doUsuario.data.length; i++) {
+                    let musica = db_favoritos_doUsuario.data[i];
 
-        // function exibeMusicas() {
-        //     // Remove todas as linhas do corpo da tabela
-        //     $("#table-musicas-favoritas").html("");
-        //     // Popula a tabela com os registros do banco de dados
-            
-        //     // let buttonAlterar = `<button id="btnGoUpdate" type="button" class="btn btn-dark btn-sm mr-1 rounded-lg"><img src="./assets/edit.svg"></button>`
-        //     // let buttonExcluir = `<button id="btnDelete" type="button" class="btn btn-danger btn-sm rounded-lg"><img src="./assets/trash-2.svg"></button>`
-            
-        //     for (i = 0; i < musicas_cadastradas.data.length; i++) {
-        //         let musicas = musicas_cadastradas.data[i];
-        //         $("#table-musicas-favoritas").append(
-        //             `<tr>
-        //                 <td>${musicas.id}</td>
-        //                 <td>${musicas.nome}</td>
-        //                 <td>${musicas.artista}</td>
-        //                 <td>dsadsa</td>
-        //             </tr>`
-        //         );
-        //     }
-        // }
+                    let buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img id="favorite' + musica.id + '" src="../assets/star-fill.svg"></a>';
+                    let buttonPlay = '<a id="btnPlay" onclick="play(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img src="./assets/play.svg"></a>';
+
+                    $("#table-musicas-favoritas").append(
+                        `<tr>
+                            <td>${buttonFavoritar}</td>
+                            <td>${musica.nome}</td>
+                            <td>${musica.artista}</td>
+                            <td>${musica.genero}, ${musica.clima}</td>
+                            <td>${buttonPlay}</td>
+                        </tr>`
+                    );
+                }
+            }
+        }
+
+        function exibeMusicas(){
+            $(".teste").html("");
+            // $('.teste').slick('slickAdd','<div><h3>' + slideIndex + '</h3></div>');
+            musicas_cadastradas = JSON.parse(localStorage.getItem('musicas_cadastradas'));
+            if(musicas_cadastradas != null ){
+                $(".descricao_estilos").text(musicas_cadastradas.data.length + " músicas");
+                for (i = 0; i < musicas_cadastradas.data.length; i++) {
+                    let musica = musicas_cadastradas.data[i];
+                    let buttonFavoritar;
+                    if(verificarFavoritoUsuario(musica.id)){
+                        buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img id="favorite' + musica.id + '" src="../assets/star-fill.svg"></a>';                    
+                    }else{
+                        buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img id="favorite' + musica.id + '" src="../assets/star.svg"></a>';                    
+                    }
+                    $(".teste").append(
+                        `<div class="track">
+                            <img style="border-radius: 1em; margin-bottom: 1em" src="${musica.imagem}" class="card-img-top rounded-circle" alt="...">
+                            ${buttonFavoritar}</img>
+                            <p><strong>${musica.nome}</strong> • ${musica.artista}</p>
+                        </div>`
+                    );
+                    // <a type="button" class="mr-1 rounded-lg">
+                    //             <img src="../assets/star.svg"></img>
+                    //         </a>
+                }
+            }
+        }
 
     </script> 
 
@@ -222,9 +362,6 @@
     <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
-
-
-    <script src="js/main.js"></script>
 </body>
 
 </html>

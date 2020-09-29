@@ -26,14 +26,14 @@ var dbfake = {
 
 var dbfake_musicas_favoritos = {
     "data": [
-        {
-        "id_usuario":	2,
-        "id_musica":	1,
-        },
-        {
-        "id_usuario":	2,
-        "id_musica":	2,
-        }   
+        // {
+        // "id_usuario":	2,
+        // "id_musica":	1,
+        // },
+        // {
+        // "id_usuario":	2,
+        // "id_musica":	2,
+        // }   
     ]
 }
 
@@ -42,7 +42,7 @@ var dbfake_musicas_favoritos = {
 var musicas_cadastradas = JSON.parse(localStorage.getItem('musicas_cadastradas'));
 var musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
 
-var db_favoritos_doUsuario = buscarFavoritosPeloUsuario();
+// var db_favoritos_doUsuario = buscarFavoritosPeloUsuario();
 
 if (!musicas_cadastradas || musicas_cadastradas.data == '') {
     musicas_cadastradas = dbfake
@@ -151,11 +151,11 @@ function buscarFavoritosPeloUsuario(){
     }
     
     usuario_logado = JSON.parse(localStorage.getItem('usuario_logado'));
- 
+    var musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
+    
     for (var i = 0; i < musicas_favoritos.data.length; i++){
         if (musicas_favoritos.data[i].id_usuario == usuario_logado.data[0].id)
         {
-            console.log(musicas_favoritos.data[i].id_musica)
             let musica = buscarMusicaPorId(musicas_favoritos.data[i].id_musica);
             favoritos.data.push(musica);
         }
@@ -163,7 +163,93 @@ function buscarFavoritosPeloUsuario(){
     return favoritos;
 }
 
+function verificarFavoritoUsuario(id_musica){
+    if(id_musica != null){
+        usuario_logado = JSON.parse(localStorage.getItem('usuario_logado'));
+        musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
+
+        if(usuario_logado != null){
+            for (var i = 0; i < musicas_favoritos.data.length; i++){
+                if (musicas_favoritos.data[i].id_usuario == usuario_logado.data[0].id && 
+                    musicas_favoritos.data[i].id_musica == id_musica)
+                {   
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+function removerFatoritoPorUsuario(id_musica){
+    if(id_musica != null){
+        usuario_logado = JSON.parse(localStorage.getItem('usuario_logado'));
+        musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
+
+        if(usuario_logado != null){
+            for (var i = 0; i < musicas_favoritos.data.length; i++){
+                if (musicas_favoritos.data[i].id_usuario == usuario_logado.data[0].id && 
+                    musicas_favoritos.data[i].id_musica == id_musica)
+                {   
+                    musicas_favoritos.data.splice(i,1);//remove 1 itens a partir do índice 1,
+                    localStorage.setItem('musicas_favoritos', JSON.stringify(musicas_favoritos));
+                    console.log("musicas_favoritos", musicas_favoritos)
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+function adicionarFatoritoPorUsuario(id_musica){
+    if(id_musica != null){
+        usuario_logado = JSON.parse(localStorage.getItem('usuario_logado'));
+        musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
+
+        if(usuario_logado != null){
+            let novoFavorito = {
+                "id_usuario": usuario_logado.data[0].id,
+                "id_musica": id_musica,
+            };
+        
+            console.log(novoFavorito)
+        
+            // Insere o novo objeto no array
+            musicas_favoritos.data.push(novoFavorito);
+            // displayMessage("Música inserida com sucesso");
+        
+            // Atualiza os dados no Local Storage
+            localStorage.setItem('musicas_favoritos', JSON.stringify(musicas_favoritos));
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function buscarMusicaPorId(id){
     let index = musicas_cadastradas.data.map(obj => obj.id).indexOf(id);
     return musicas_cadastradas.data[index];
 }
+
+function getUsuarioLogado(){
+    usuario_logado = JSON.parse(localStorage.getItem('usuario_logado'));
+    if(!usuario_logado || usuario_logado.data == ''){
+        return null;
+    }else {
+        return usuario_logado.data[0];
+    }
+}
+
+function logoutAccount(){
+    usuario_logado = JSON.parse(localStorage.getItem('usuario_logado'));
+    
+    localStorage.removeItem('usuario_logado');
+
+    $(location).attr('href', './index.html');
+}
+

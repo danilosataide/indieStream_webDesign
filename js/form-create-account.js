@@ -68,13 +68,14 @@ var usuarios_admin = {
         "nome": "Usuário",
         "sobrenome": "Admin",
         "email": "admin@admin.com",
-        "password": "admin"
+        "password": "admin",
+        "categoria": "Administrador"
         }
     ]
 }
 
 // Caso exista no Local Storage, recupera os dados salvos
-var usuarios_cadastrados = JSON.parse(localStorage.getItem('musicas_cadastradas'));
+var usuarios_cadastrados = JSON.parse(localStorage.getItem('usuarios_cadastrados'));
 
 if (!usuarios_cadastrados || usuarios_cadastrados.data == '') {
     usuarios_cadastrados = usuarios_admin
@@ -105,7 +106,8 @@ function createAccount() {
         "nome": $('#inputNome').val(),
         "sobrenome": $('#inputSobrenome').val(),
         "email": $('#inputEmail').val(),
-        "password": $('#inputPassword').val()
+        "password": $('#inputPassword').val(),
+        "categoria": "Ouvinte"
     };
     
     // novoUsuario.nome = $('#inputNome').val();

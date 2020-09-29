@@ -71,19 +71,20 @@ function logonAccount(){
 function usuarioLogado(usuario) {
   usuario_logado = JSON.parse(localStorage.getItem('usuario_logado'));
 
-  if (usuario_logado == null){
+  if (!usuario_logado || usuario_logado.data == ''){
     usuario_logado = {
       "data": [  
           {
           "id": usuario.id,
+          "nome": usuario.nome,
+          "sobrenome": usuario.sobrenome,
+          "email": usuario.email,
+          "categoria": usuario.categoria
           }
       ]
     }
   }	else {
     usuario_logado.data[0].id = usuario.id;
   }
-
-  
-
   localStorage.setItem('usuario_logado', JSON.stringify(usuario_logado));
 }

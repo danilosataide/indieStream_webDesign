@@ -7,9 +7,11 @@ body {
 .grid-filtrados, .grid-favoritos, .grid-player {
     padding: 0rem;
     color: white;
+    background-color: transparent
 }
 
 .grid-favoritos {
+    margin-top: 0px;
     margin-right: 2rem;
 }
 
@@ -21,11 +23,28 @@ body {
     background-color: #001170;
     padding: 1rem;
     border-radius: 1em;
-    background-color: transparent;
+    /* background-color: transparent;
     -webkit-box-shadow: 0px 0px 10px 10px #001170;
     -moz-box-shadow: 0px 0px 10px 10px #001170;
-    box-shadow: 0px 0px 0px 10px 10px #001170;
+    box-shadow: 0px 0px 0px 10px 10px #001170; */
     /* box-shadow: 1rem 1rem 1rem 1rem #001170; */
+}
+
+.grid-filtrados {
+    background-color: transparent;
+
+    background: rgba(1,6,75,1);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(1,6,75,1) 0%, rgba(0,17,112,1) 0%, rgba(1,6,75,0.44) 56%, rgba(1,6,75,0) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(1,6,75,1)), color-stop(0%, rgba(0,17,112,1)), color-stop(56%, rgba(1,6,75,0.44)), color-stop(100%, rgba(1,6,75,0)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(1,6,75,1) 0%, rgba(0,17,112,1) 0%, rgba(1,6,75,0.44) 56%, rgba(1,6,75,0) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgba(1,6,75,1) 0%, rgba(0,17,112,1) 0%, rgba(1,6,75,0.44) 56%, rgba(1,6,75,0) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgba(1,6,75,1) 0%, rgba(0,17,112,1) 0%, rgba(1,6,75,0.44) 56%, rgba(1,6,75,0) 100%);
+    background: radial-gradient(ellipse at center, rgba(1,6,75,1) 0%, rgba(0,17,112,1) 0%, rgba(1,6,75,0.44) 56%, rgba(1,6,75,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01064b', endColorstr='#01064b', GradientType=1 );
+}
+
+.track {
+    text-align: center;
 }
 
 th{
@@ -59,7 +78,7 @@ a.list-group-item:first-child {
     border-top: 1px solid #001170;
 }
 
-.descricao{
+.descricao_favoritos, .descricao_estilos{
     color:white;
     margin-top: 0px;
     font-size: 14px;
