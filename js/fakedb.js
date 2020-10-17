@@ -20,7 +20,124 @@ var dbfake = {
         "clima":	"Vibrante",
         "imagem": "https://studiosol-a.akamaihd.net/letras/272x272/albuns/9/7/6/e/678361571331412.jpg",
         "audio": "./audio/Buckeye Bonzai - Vans in Japan.mp3"
-        }   
+        },
+        {
+        "id":	3,
+        "nome":	"Beside Me",
+        "artista": "Patrick Patrikios",
+        "genero":	"Dance e eletrônica",
+        "clima":	"Sombrio",
+        "imagem": "https://cdn.pixabay.com/photo/2020/09/28/10/07/face-mask-5609287_960_720.png",
+        "audio": "./audio/Beside Me - Patrick Patrikios.mp3"
+        },   
+        {
+        "id":	4,
+        "nome":	"Can-Can",
+        "artista": "Offenbach",
+        "genero":	"Clássica",
+        "clima":	"Dramático",
+        "imagem": "https://cdn.pixabay.com/photo/2020/06/08/10/00/black-5273871_1280.jpg",
+        "audio": "./audio/Can-Can (by Offenbach) - Offenbach.mp3"
+        },   
+        {
+        "id":	5,
+        "nome":	"Angel Guides",
+        "artista": "Jesse Gallagher",
+        "genero":	"Ambiente",
+        "clima":	"Inspirador",
+        "imagem": "https://cdn.pixabay.com/photo/2020/10/01/09/35/bee-5618012_1280.jpg",
+        "audio": "./audio/Angel Guides - Jesse Gallagher.mp3"
+        },   
+        {
+        "id":	6,
+        "nome":	"Beneath the Surface",
+        "artista": "South London HiFi",
+        "genero":	"Dance e elêtronica",
+        "clima":	"Vibrante",
+        "imagem": "https://cdn.pixabay.com/photo/2020/10/01/17/11/store-5619201_1280.jpg",
+        "audio": "./audio/Beneath the Surface - South London HiFi.mp3"
+        },   
+        {
+        "id":	7,
+        "nome":	"Educated Man",
+        "artista": "Max McFerren",
+        "genero":	"Dance e eletrônica",
+        "clima":	"Alegre",
+        "imagem": "https://cdn.pixabay.com/photo/2020/09/06/22/11/neptune-5550216_960_720.jpg",
+        "audio": "./audio/Educated Man - Max McFerren.mp3"
+        },
+        {
+        "id":	8,
+        "nome":	"Cumulus Nimbus",
+        "artista": "Quincas Moreira",
+        "genero":	"Ambiente",
+        "clima":	"Calmo",
+        "imagem": "https://cdn.pixabay.com/photo/2020/09/27/23/39/cow-5608144_1280.jpg",
+        "audio": "./audio/Cumulus Nimbus - Quincas Moreira.mp3"
+        },
+        {
+        "id":	9,
+        "nome":	"Cover",
+        "artista": "Patrick Patrikios",
+        "genero":	"Dance e eletrônica",
+        "clima":	"Vibrante",
+        "imagem": "https://cdn.pixabay.com/photo/2020/07/04/14/27/snow-5369752_1280.jpg",
+        "audio": "./audio/Cover - Patrick Patrikios.mp3"
+        },
+        {
+        "id":	10,
+        "nome":	"Ocean View",
+        "artista": "Patrick Patrikios",
+        "genero":	"Dance e eletrônica",
+        "clima":	"Animado",
+        "imagem": "https://cdn.pixabay.com/photo/2020/10/12/14/11/meadow-5648849_1280.jpg",
+        "audio": "./audio/Ocean View - Patrick Patrikios.mp3"
+        },
+        {
+        "id":	11,
+        "nome":	"Moons",
+        "artista": "Patrick Patrikios",
+        "genero":	"Dance e eletrônica",
+        "clima":	"Inspirador",
+        "imagem": "https://cdn.pixabay.com/photo/2020/04/03/19/02/virus-4999857_1280.png",
+        "audio": "./audio/Moons - Patrick Patrikios.mp3"
+        },
+        {
+        "id":	12,
+        "nome":	"Find Your Way Beat",
+        "artista": "Nana Kwabena",
+        "genero":	"Pop",
+        "clima":	"Inspirador",
+        "imagem": "https://cdn.pixabay.com/photo/2020/05/04/18/55/avocado-5130214_960_720.png",
+        "audio": "./audio/Find Your Way Beat - Nana Kwabena.mp3"
+        },
+        {
+        "id":	13,
+        "nome":	"Getaway Powder",
+        "artista": "DJ Freedem",
+        "genero":	"Hip-Hop e rap",
+        "clima":	"Inspirador",
+        "imagem": "https://cdn.pixabay.com/photo/2019/12/14/07/21/mountain-4694346_960_720.png",
+        "audio": "./audio/Getaway Powder - DJ Freedem.mp3"
+        },
+        {
+        "id":	14,
+        "nome":	"Life After Death",
+        "artista": "DJ Freedem",
+        "genero":	"Hip-Hop e rap",
+        "clima":	"Alegre",
+        "imagem": "https://cdn.pixabay.com/photo/2017/11/24/16/29/tea-2975184_1280.png",
+        "audio": "./audio/Life After Death - DJ Freedem.mp3"
+        },
+        {
+        "id":	15,
+        "nome":	"Spring Thaw",
+        "artista": "Asher Fulero",
+        "genero":	"Ambiente",
+        "clima":	"Animado",
+        "imagem": "https://cdn.pixabay.com/photo/2020/10/09/08/15/dragonfly-5639879_1280.jpg",
+        "audio": "./audio/Spring Thaw - Asher Fulero.mp3"
+        }
     ]
 }
 

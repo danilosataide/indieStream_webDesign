@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
     <script>
-        $( "head" ).load( "head-html.html" );
+        $( "head" ).load( "./head-html.html" );
 
-        $( "head" ).load( "head-html.html", function( response, status, xhr ) {
+        $( "head" ).load( "./head-html.html", function( response, status, xhr ) {
             if ( status == "error" ) {
             var msg = "Desculpe, mas ocorreu um erro: " + xhr.status + " " + xhr.statusText;
             // $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
@@ -44,12 +44,9 @@
                 <div class="row">
                     <div class="col-md grid-filtrados pbshadow">
                         <h3>Todos os estilos</h3>
-                        <span class="descricao_estilos">10 músicas</span>
+                        <span class="descricao_estilos"></span>
                         <div class="teste">
-                            <div>
-                                <h3>1</h3>
-                                <img style="border-radius: 1em;" src="./img/user.jpg" class="card-img-top" alt="...">
-                            </div>
+                            <!-- musicas -->
                         </div>
                     </div>
                 </div>
@@ -72,20 +69,68 @@
                                     </tr>
                                 </thead>
                                 <tbody id="table-musicas-favoritas">
+                                   
                                     <!-- <tr>
                                         <td scope="row"></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr> -->
+                                    
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <!-- Faixa atual -->
-                    <div class="col-lg grid-player pbshadow" >
-                        One of three columns
-                    </div>
+                    <div class="col-lg grid-player pbshadow responsive">
+                        <h3>Escutando</h3>
+                        
+                        <div class="row" style="margin: 30px 0">
+                            <div class="col-sm-12">
+                                <div id="waveform">
+                                    <!-- Here be waveform -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin: 30px 0">
+                            <div class="col-sm-3">
+                                <button class="btn btn-dark btn-block" id="">
+                                    <span id="">
+                                        <img src="./assets/skip-back.svg">
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-success btn-block" id="playPause">
+                                    <span id="play">
+                                        <img src="./assets/play-circle.svg">
+                                    </span>
+        
+                                    <span id="pause" style="display: none">
+                                        <img src="./assets/pause-circle.svg">
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-dark btn-block" id="">
+                                    <span id="">
+                                        <img src="./assets/skip-forward.svg">
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-dark btn-block" id="">
+                                    <span id="">
+                                        <img src="./assets/volume-2.svg">
+                                    </span>
+        
+                                    <span id="" style="display: none">
+                                        <img src="./assets/volume-x.svg">
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>      
                 </div>
             </div>
 
@@ -131,19 +176,46 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
     </script>
-    <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script> 
 
     <script src="js/main.js"></script>
+    <script src="./js/fakedb.js"></script>
 
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="./slick/slick.min.js"></script>
 
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+
     <script>
+        
+        var wavesurfer = WaveSurfer.create({
+            container: document.querySelector('#waveform'),
+            scrollParent: false,
+            autoCenter: true,
+            mediaControls: true,
+            waveColor: '#01064B',
+            progressColor: '#fff',
+            cursorColor: '#fff',
+            barWidth: 2,
+            barRadius: 3,
+            cursorWidth: 1,
+            height: 150,
+            barGap: 3
+        });
+
+        wavesurfer.load('./audio/Life After Death - DJ Freedem.mp3');
+        
+        // wavesurfer.on('ready', function () {
+        //     wavesurfer.play();
+        // });
+
+        
+
         $(document).ready(function() {
             exibeMusicasFavoritas();
             exibeMusicas();
@@ -205,6 +277,72 @@
                     }
                 ]
             });
+
+            var playPause = document.querySelector('#playPause');
+            playPause.addEventListener('click', function() {
+                wavesurfer.playPause();
+            });
+
+            // Toggle play/pause text
+            wavesurfer.on('play', function() {
+                document.querySelector('#play').style.display = 'none';
+                document.querySelector('#pause').style.display = '';
+            });
+            wavesurfer.on('pause', function() {
+                document.querySelector('#play').style.display = '';
+                document.querySelector('#pause').style.display = 'none';
+            });
+
+            // The playlist links
+            var links = document.querySelectorAll('#table-musicas-favoritas a#btnPlay');
+            var currentTrack = 0;
+            console.log(links)
+
+            // Load a track by index and highlight the corresponding link
+            var setCurrentSong = function(index) {
+                document.getElementById('table-musicas-favoritas').getElementsByTagName('tr')[currentTrack].classList.remove("active");
+                // links[currentTrack].classList.remove('active');
+                currentTrack = index;
+                // links[currentTrack].classList.add('active');
+                document.getElementById('table-musicas-favoritas').getElementsByTagName('tr')[currentTrack].classList.add("active");
+                // $("#table-musicas-favoritas a").addClass("active");
+                wavesurfer.load(links[currentTrack].href);
+            };
+
+            // Load the track on click
+            Array.prototype.forEach.call(links, function(link, index) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    setCurrentSong(index);
+                });
+            });
+
+            // Play on audio load
+            wavesurfer.on('ready', function() {
+                wavesurfer.pause();
+            });
+
+            wavesurfer.on('error', function(e) {
+                console.warn(e);
+            });
+
+            // Go to the next track on finish
+            wavesurfer.on('finish', function() {
+                setCurrentSong((currentTrack + 1) % links.length);
+            });
+
+            // Load the first track
+            setCurrentSong(currentTrack);
+            
+            // $("#audioPlayer")[0].addEventListener("ended", function(){
+            //     currentSong++;
+            //     if(currentSong == $("#playlist li a").length)
+            //         currentSong = 0;
+            //     $("#playlist li").removeClass("current-song");
+            //     $("#playlist li:eq("+currentSong+")").addClass("current-song");
+            //     $("#audioPlayer")[0].src = $("#playlist li a")[currentSong].href;
+            //     $("#audioPlayer")[0].play();
+            // });
         });
 
         var dbtable = {
@@ -312,17 +450,19 @@
                     let musica = db_favoritos_doUsuario.data[i];
 
                     let buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img id="favorite' + musica.id + '" src="../assets/star-fill.svg"></a>';
-                    let buttonPlay = '<a id="btnPlay" onclick="play(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img src="./assets/play.svg"></a>';
+                    let buttonPlay = '<a id="btnPlay" href="' + musica.audio + '" onclick="play(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img src="./assets/play.svg"></a>';
 
                     $("#table-musicas-favoritas").append(
                         `<tr>
+                        <a href="${musica.audio}">
                             <td>${buttonFavoritar}</td>
                             <td>${musica.nome}</td>
                             <td>${musica.artista}</td>
                             <td>${musica.genero}, ${musica.clima}</td>
                             <td>${buttonPlay}</td>
-                        </tr>`
+                        </a></tr>`
                     );
+                
                 }
             }
         }
@@ -343,7 +483,8 @@
                     }
                     $(".teste").append(
                         `<div class="track">
-                            <img style="border-radius: 1em; margin-bottom: 1em" src="${musica.imagem}" class="card-img-top rounded-circle" alt="...">
+                            
+                            <img style="border-radius: 1em; margin-bottom: 1em" src="${musica.imagem}" width=auto height=150 class="card-img-top rounded-circle" alt="...">
                             ${buttonFavoritar}</img>
                             <p><strong>${musica.nome}</strong> • ${musica.artista}</p>
                         </div>`

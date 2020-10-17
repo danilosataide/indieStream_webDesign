@@ -47,19 +47,37 @@ body {
     text-align: center;
 }
 
+.list-group{
+    color:white;
+}
+
+.list-group-item{
+    background-color: transparent;
+    margin: 0px;
+    padding: 0rem;
+}
+
+.active {
+    color: #5CB85C;
+}
+
 th{
     color:white;
 }
 
 #table-favoritos {
-    color:white;
+    color:rgba(255, 255, 255, 0.8);
     background-color: transparent;
     margin: 0px;
     padding: 0rem;
 }
 
 #table-favoritos tbody tr:hover {
-    color:white;
+    color: white;
+}
+
+#table-favoritos tbody tr.active:hover  {
+    color: #5CB85C;
 }
 
 h3 {

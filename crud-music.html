@@ -298,12 +298,18 @@
 
     <script>
         var wavesurfer = WaveSurfer.create({
-            container: '#waveform',
+            container: document.querySelector('#waveform'),
             scrollParent: false,
             autoCenter: true,
             mediaControls: true,
-            waveColor: '#0427ee',
-            progressColor: '#01064B'
+            waveColor: '#D9DCFF',
+            progressColor: '#001170',
+            cursorColor: '#001170',
+            barWidth: 0,
+            barRadius: 3,
+            cursorWidth: 1,
+            height: 150,
+            barGap: 3
         });
 
         var isAlterar = false;
