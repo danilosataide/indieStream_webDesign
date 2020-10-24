@@ -81,7 +81,7 @@ var dbfake = {
         "artista": "Patrick Patrikios",
         "genero":	"Dance e eletrônica",
         "clima":	"Vibrante",
-        "imagem": "https://cdn.pixabay.com/photo/2020/07/04/14/27/snow-5369752_1280.jpg",
+        "imagem": "https://cdn.pixabay.com/photo/2020/09/04/20/09/cartoon-5544856_960_720.jpg",
         "audio": "./audio/Cover - Patrick Patrikios.mp3"
         },
         {
