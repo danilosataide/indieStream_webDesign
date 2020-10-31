@@ -18,9 +18,9 @@
 </head>
 
 <body>
-    <div class="page-wrapper default-theme sidebar-bg bg1 toggled">
+    <div class="page-wrapper default-theme sidebar-bg bg1 toggled disabled">
         <div id="sidebar-html"></div>
-        
+
         <script>
             $( "#sidebar-html" ).load( "sidebar-html.html" );
         </script>
@@ -35,17 +35,38 @@
             </script>
             
             <div id="overlay" class="overlay"></div>
+
             <div class="container-fluid p-5">
                 <!-- COLOCAR CONTEUDO AQUI PARA BAIXO -->
-
                 <div class="profile-item">
                     <div class="profile-picture big-profile-picture">
                         <img src="./img/user.jpg">
                     </div>
                     <h2 class="profile-name">usuario.name</h2>
-                    <div class="profile-info">user.email</div>
+                    <div class="profile-email">user.email</div>
+                    <a type="button" class="excluir-conta">Excluir Conta</a>
                 </div>
                 
+            </div>
+
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Excluir Conta</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Deseja realmente excluir sua conta e deixar de ouvir suas músicas prediletas?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                      <button type="button" id="btnGoDeleteConta" class="btn btn-danger">Excluir</button>
+                    </div>
+                  </div>
+                </div>
             </div>
             
         </main>
@@ -71,6 +92,36 @@
 
 
     <script src="js/main.js"></script>
+    <script src="./js/fakedb.js"></script>
+
+    <script>     
+        usuario = getUsuarioLogado();
+        $('.profile-name').html(`${usuario.nome} <strong>${usuario.sobrenome}</strong>`);
+        $('.profile-email').html(`${usuario.email}`);
+
+        if(usuario.categoria == "Administrador")  {
+            $('.excluir-conta').css("display", "none");
+        }
+
+        // Intercepta o click da ancora Excluir <a></a>
+        $(".excluir-conta").click(function () {
+            $('#staticBackdrop').modal('show');
+        });
+
+        // Intercepta o click do botão Excluir (ModalView)
+        $("#btnGoDeleteConta").click(function () {
+            let id = usuario.id;
+            if (id == "") {
+                return;
+            }
+
+            deleteUser(parseInt(id));
+
+            // // Fecha o modal
+            $('#staticBackdrop').modal('toggle');
+        });
+
+     </script>
 </body>
 
 </html>

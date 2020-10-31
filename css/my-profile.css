@@ -33,3 +33,32 @@
   font-weight: bold !important;
   text-transform: capitalize;
 }
+
+.excluir-conta{
+  color:red;
+
+}
+
+a:hover{
+  color: lightcoral;
+  text-decoration: none;
+}
+
+.background-image-blur {
+    background-repeat:no-repeat;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    display: block;
+    background-color: transparent;
+    height: 1000px;
+    width: 1500px;
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+
+}

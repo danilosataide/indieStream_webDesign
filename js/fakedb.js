@@ -370,3 +370,32 @@ function logoutAccount(){
     $(location).attr('href', './index.html');
 }
 
+function deleteUser(id) {    
+
+    usuarios_cadastrados = JSON.parse(localStorage.getItem('usuarios_cadastrados'));
+
+    if (usuarios_cadastrados == null){
+        alert("Não foi possível excluir o usuário")
+    } else {
+        // Filtra o array removendo o elemento com o id passado
+        usuarios_cadastrados.data = usuarios_cadastrados.data.filter(function (element) { return element.id != id });
+
+        // Atualiza os dados no Local Storage
+        localStorage.setItem('usuarios_cadastrados', JSON.stringify(usuarios_cadastrados));
+
+        const demoClasses = document.querySelectorAll('.page-wrapper');
+        demoClasses.forEach(element => {
+            element.setAttribute('class', 'page-wrapper default-theme sidebar-bg bg1 toggled background-image-blur');
+        });
+        // console.log(demoClasses)
+        // console.log(demoClasses[0])
+        demoClasses[0];
+
+        setTimeout(function(){
+            // alert("Seu usuário foi removido do sistema! Redirecionando para a página de login...");
+
+            $(location).attr('href', './index.html');
+        }, 1500);
+        
+    }
+}

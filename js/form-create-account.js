@@ -67,6 +67,7 @@ var usuarios_admin = {
         "id": 1,
         "nome": "Usuário",
         "sobrenome": "Admin",
+        "picture": "./img/user.jpg",
         "email": "admin@admin.com",
         "password": "admin",
         "categoria": "Administrador"
@@ -105,6 +106,7 @@ function createAccount() {
         "id": novoId,
         "nome": $('#inputNome').val(),
         "sobrenome": $('#inputSobrenome').val(),
+        "picture": "./img/user.jpg",
         "email": $('#inputEmail').val(),
         "password": $('#inputPassword').val(),
         "categoria": "Ouvinte"
