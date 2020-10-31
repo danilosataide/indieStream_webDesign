@@ -237,6 +237,20 @@ function updateMusic(id, musicas) {
 }
 
 function deleteMusic(id) {    
+    musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
+    usuarios_cadastrados = JSON.parse(localStorage.getItem('usuarios_cadastrados'));
+
+    //remover a música de Favoritos dos usuários
+    if (musicas_favoritos != null){
+        if(usuarios_cadastrados != null){
+            for (var i = 0; i < musicas_favoritos.data.length; i++){
+                if (musicas_favoritos.data[i].id_musica == id){   
+                    removerFatorito(id);
+                }
+            }
+        }
+    }
+
     // Filtra o array removendo o elemento com o id passado
     musicas_cadastradas.data = musicas_cadastradas.data.filter(function (element) { return element.id != id });
 
@@ -290,6 +304,26 @@ function verificarFavoritoUsuario(id_musica){
                 if (musicas_favoritos.data[i].id_usuario == usuario_logado.data[0].id && 
                     musicas_favoritos.data[i].id_musica == id_musica)
                 {   
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+function removerFatorito(id_musica){
+    if(id_musica != null){
+        musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
+
+        if(musicas_favoritos != null){
+            for (var i = 0; i < musicas_favoritos.data.length; i++){
+                if (musicas_favoritos.data[i].id_musica == id_musica)
+                {   
+                    musicas_favoritos.data.splice(i,1);//remove 1 itens a partir do índice 1,
+                    localStorage.setItem('musicas_favoritos', JSON.stringify(musicas_favoritos));
+                    console.log("musicas_favoritos", musicas_favoritos)
                     return true;
                 }
             }
