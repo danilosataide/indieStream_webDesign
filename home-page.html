@@ -43,7 +43,7 @@
                 <!-- Músicas filtradas por gênero e clima -->
                 <div class="row">
                     <div class="col-md grid-filtrados pbshadow">
-                        <h3>Todos os estilos</h3>
+                        <h3 class="title-grid-filtrados">Todos os estilos</h3>
                         <span class="descricao_estilos"></span>
                         <div class="teste">
                             <!-- musicas -->
@@ -208,13 +208,11 @@
             barGap: 2,
         });
 
-        wavesurfer.load('./audio/Life After Death - DJ Freedem.mp3');
+        // wavesurfer.load('./audio/Life After Death - DJ Freedem.mp3');
         
         // wavesurfer.on('ready', function () {
         //     wavesurfer.play();
         // });
-
-        
 
         $(document).ready(function() {
             exibeMusicasFavoritas();

@@ -154,10 +154,76 @@ var dbfake_musicas_favoritos = {
     ]
 }
 
+var dbfake_generos = {
+    "data": [
+        {
+        "nome":	"Todos",
+        "qtde":	0,
+        },
+        {
+        "nome":	"Alternativo e punk",
+        "qtde":	0,
+        },
+        {
+        "nome":	"Ambiente",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Infantil",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Trilha sonora de cinema",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Clássica",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Country e folk",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Dance e eletrônica",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Hip-Hop e rap",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Natalina",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Jazz e blues",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Pop",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"R&B e soul",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Reggae",
+        "qtde":	0,
+        }, 
+        {
+        "nome":	"Rock",
+        "qtde":	0,
+        }
+    ]
+}
+
 
 // Caso exista no Local Storage, recupera os dados salvos
 var musicas_cadastradas = JSON.parse(localStorage.getItem('musicas_cadastradas'));
 var musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
+var generos = JSON.parse(localStorage.getItem('generos'));
 
 // var db_favoritos_doUsuario = buscarFavoritosPeloUsuario();
 
@@ -171,6 +237,10 @@ if (!musicas_favoritos || musicas_favoritos.data == '') {
     localStorage.setItem('musicas_favoritos', JSON.stringify(musicas_favoritos));
 };
 
+if (!generos || generos.data == '') {
+    generos = dbfake_generos
+    localStorage.setItem('generos', JSON.stringify(generos));
+};
 // console.log(musicas_cadastradas);
 // Exibe mensagem em um elemento de ID msg
 function displayMessage(msg) {
@@ -179,7 +249,6 @@ function displayMessage(msg) {
 }
 
 function insertMusic(musicas) {
-
     let novoId;
 
 	// Verificar se existe algum dado no LocalStorage
@@ -211,6 +280,7 @@ function insertMusic(musicas) {
 
     // Atualiza os dados no Local Storage
     localStorage.setItem('musicas_cadastradas', JSON.stringify(musicas_cadastradas));
+    atualizaGeneros();
 }
 
 function updateMusic(id, musicas) {
@@ -432,4 +502,34 @@ function deleteUser(id) {
         }, 1500);
         
     }
+}
+
+function getGeneros(){
+    atualizaGeneros();
+    generos = JSON.parse(localStorage.getItem('generos'));
+    return generos;
+}
+
+function atualizaGeneros() {
+    generos = JSON.parse(localStorage.getItem('generos'));
+    if(generos != null) {
+        musicas_cadastradas = JSON.parse(localStorage.getItem('musicas_cadastradas'));
+        var cont = 0;
+        if(musicas_cadastradas != null) {
+            for (var i = 0; i < generos.data.length; i++){
+                for (var j = 0; j < musicas_cadastradas.data.length; j++){
+                    if (musicas_cadastradas.data[j].genero === generos.data[i].nome)
+                    {   
+                        cont++;
+                    }
+                }
+                generos.data[i].qtde = cont;
+                cont = 0;
+            }
+            generos.data[0].qtde = musicas_cadastradas.data.length;
+            // Atualiza os dados no Local Storage
+            localStorage.setItem('generos', JSON.stringify(generos));
+        }
+    }
+
 }
