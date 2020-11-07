@@ -54,49 +54,132 @@
 
                 <div class="row mt-3">
                     <!-- Músicas favoritas -->
-                    <div class="col-lg grid-favoritos pbshadow responsive">
+                    <div id="seus-favoritos" class="col-lg grid-favoritos pbshadow responsive">
                         <div class="table-responsive-xl">
                             <h3>Seus Favoritos</h3>
                             <span class="descricao_favoritos">10 músicas</span>
-                            <table id="table-favoritos" class="table table-borderless table-hover display">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th> <!-- Botão de play -->
-                                        <th scope="col">Título</th>
-                                        <th scope="col">Artista</th>
-                                        <th scope="col">Gênero, Clima</th><!-- Botão de favorito -->
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-musicas-favoritas">
-                                   
-                                    <!-- <tr>
-                                        <td scope="row"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr> -->
-                                    
-                                </tbody>
-                            </table>
+                            <div class="scroll">
+                                <table id="table-favoritos" class="table table-borderless table-hover display">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th> <!-- Botão de play -->
+                                            <th scope="col">Título</th>
+                                            <th scope="col">Artista</th>
+                                            <th scope="col">Gênero, Clima</th><!-- Botão de favorito -->
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-musicas-favoritas">
+                                       
+                                        <!-- <tr>
+                                            <td scope="row"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr> -->
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <!-- Faixa atual -->
                     <div class="col-lg grid-player pbshadow responsive">
-                        <h3>Escutando</h3>
+                        <h3 class="player">Escutando</h3>
                         
+                        <div id="songs">
+                            <li class="song">
+                                <p class="song-title"></p>
+                                <p class="song-artist"></p>
+                                <p>
+                                    <i id="favoritePlayer">
+                                        <span id="favorite-star-fill">
+                                            <img src="./assets/star-fill.svg">
+                                        </span>
+            
+                                        <span id="favorite-star" style="display: none">
+                                            <img src="./assets/star.svg">
+                                        </span>
+                                    </i>
+                                </p>
+                            </li>
+                            
+                        </div>
+
                         <div class="row" style="margin: 30px 0">
                             <div class="col-sm-12">
-                                <div id="waveform">
+                                <div id="waveform" style="text-align: center;">
                                     <!-- Here be waveform -->
                                 </div>
                             </div>
                         </div>
-                        <div class="row" style="margin: 30px 0">
-                            <div class="col-sm-3">
-                                <button class="btn btn-dark btn-block" id="">
+                        <!-- <div id="timeline">
+                            <span id="current-time">--:--</span>
+                            <span id="total-time">--:--</span>
+                        </div> -->
+
+                        <div id="sub-controls">
+                            <i id="skipBackward">
+                                <span id="">
+                                    <img src="./assets/skip-back.svg">
+                                </span>
+                            </i>
+                            <i id="rewind">
+                                <span id="">
+                                    <img src="./assets/rewind.svg">
+                                </span>
+                            </i>
+                            <!-- <i class="fa fa-refresh"></i> -->
+                            <i id="playPause">
+                                <span id="play">
+                                    <img src="./assets/play-circle.svg">
+                                </span>
+    
+                                <span id="pause" style="display: none">
+                                    <img src="./assets/pause-circle.svg">
+                                </span>
+                            </i>
+                            <i id="fast-forward">
+                                <span id="">
+                                    <img src="./assets/fast-forward.svg">
+                                </span>
+                            </i>
+                            <i id="skip-forward">
+                                <span id="">
+                                    <img src="./assets/skip-forward.svg">
+                                </span>
+                            </i>
+                            <i id="toggleMute">
+                                <span id="volume-on">
+                                    <img src="./assets/volume-2.svg">
+                                </span>
+    
+                                <span id="volume-x" style="display: none">
+                                    <img src="./assets/volume-x.svg">
+                                </span>
+                            </i>
+                            <i id="expandMinimize">
+                                <span id="expand">
+                                    <img src="./assets/external-link.svg">
+                                </span>
+    
+                                <span id="minimize" style="display: none">
+                                    <img src="./assets/minimize-2.svg">
+                                </span>
+                            </i>
+                        </div>
+                        <!-- <div class="row" style="margin: 30px 0">
+                            <div class="col">
+                                <button class="btn btn-dark btn-block" id="skipBackward">
                                     <span id="">
                                         <img src="./assets/skip-back.svg">
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-dark btn-block" id="rewind">
+                                    <span id="">
+                                        <img src="./assets/rewind.svg">
                                     </span>
                                 </button>
                             </div>
@@ -111,25 +194,32 @@
                                     </span>
                                 </button>
                             </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-dark btn-block" id="">
+                            <div class="col">
+                                <button class="btn btn-dark btn-block" id="fast-forward">
+                                    <span id="">
+                                        <img src="./assets/fast-forward.svg">
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-dark btn-block" id="skip-forward">
                                     <span id="">
                                         <img src="./assets/skip-forward.svg">
                                     </span>
                                 </button>
                             </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-dark btn-block" id="">
-                                    <span id="">
+                            <div class="col">
+                                <button class="btn btn-dark btn-block" id="toggleMute">
+                                    <span id="volume-on">
                                         <img src="./assets/volume-2.svg">
                                     </span>
         
-                                    <span id="" style="display: none">
+                                    <span id="volume-x" style="display: none">
                                         <img src="./assets/volume-x.svg">
                                     </span>
                                 </button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>      
                 </div>
             </div>
@@ -198,9 +288,9 @@
             scrollParent: false,
             autoCenter: true,
             mediaControls: true,
-            waveColor: '#01064B',
-            progressColor: '#fff',
-            cursorColor: '#fff',
+            waveColor: '#fff',
+            progressColor: '#0026ff',
+            cursorColor: '#0026ff',
             barWidth: 2,
             barRadius: 3,
             cursorWidth: 1,
@@ -281,6 +371,55 @@
                 wavesurfer.playPause();
             });
 
+            var toggleMute = document.querySelector('#toggleMute');
+            toggleMute.addEventListener('click', function() {
+                wavesurfer.toggleMute();
+                var stateMute = wavesurfer.getMute();
+                if(stateMute) {
+                    document.querySelector('#volume-on').style.display = 'none';
+                    document.querySelector('#volume-x').style.display = '';
+                } else {
+                    document.querySelector('#volume-on').style.display = '';
+                    document.querySelector('#volume-x').style.display = 'none';
+                }
+            });
+
+            var stateMinimize = true;
+            var expandMinimize = document.querySelector('#expandMinimize');
+            expandMinimize.addEventListener('click', function() {
+                if(stateMinimize) {
+                    document.querySelector('#expand').style.display = 'none';
+                    document.querySelector('#minimize').style.display = '';
+                    stateMinimize = false;
+                    ocultar();
+                } else {
+                    document.querySelector('#expand').style.display = '';
+                    document.querySelector('#minimize').style.display = 'none';
+                    stateMinimize = true;
+                    exibir();
+                }
+            });
+            
+            function exibir() {
+                document.getElementById("seus-favoritos").style.display = "block";
+            }
+
+            function ocultar() {
+                document.getElementById("seus-favoritos").style.display = "none";
+            }
+
+            var rewind = document.querySelector('#rewind');
+            rewind.addEventListener('click', function() {
+                wavesurfer.skipBackward();
+                wavesurfer.play();
+            });
+
+            var fastForward = document.querySelector('#fast-forward');
+            fastForward.addEventListener('click', function() {
+                wavesurfer.skipForward();
+                wavesurfer.play();
+            });
+
             // Toggle play/pause text
             wavesurfer.on('play', function() {
                 document.querySelector('#play').style.display = 'none';
@@ -303,6 +442,24 @@
                 currentTrack = index;
                 // links[currentTrack].classList.add('active');
                 document.getElementById('table-musicas-favoritas').getElementsByTagName('tr')[currentTrack].classList.add("active");
+        
+                //title
+                var title = document.querySelectorAll('#table-musicas-favoritas tr td')[(currentTrack)*5+1];
+                $(".song-title").text(title.textContent);
+
+                //artist
+                var artist = document.querySelectorAll('#table-musicas-favoritas tr td')[(currentTrack)*5+2];
+                $(".song-artist").text(artist.textContent);
+                
+                var id = document.querySelectorAll('#table-musicas-favoritas tr td')[(currentTrack)*5+0].querySelectorAll('#btnFavoritar')[0].getAttributeNode('value').value;
+                
+                var musica = buscarMusicaPorId(parseInt(id));
+                var url = `url("${musica.imagem}")`;
+                $('.grid-player').css('background-image', url);
+
+                // var musica = document.getElementById('table-musicas-favoritas').getElementsByTagName('tr')[currentTrack].getElementsByTagName('td')[0];
+                // console.log(musica.getElementsByTagName('a'));
+                
                 // $("#table-musicas-favoritas a").addClass("active");
                 wavesurfer.load(links[currentTrack].href);
             };
@@ -311,6 +468,11 @@
             Array.prototype.forEach.call(links, function(link, index) {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+                    if(wavesurfer.isPlaying()){
+                        wavesurfer.pause();
+                    }
+                    wavesurfer.empty();
+                    wavesurfer.cancelAjax();
                     setCurrentSong(index);
                 });
             });
@@ -482,7 +644,7 @@
                     $(".teste").append(
                         `<div class="track">
                             
-                            <img style="border-radius: 1em; margin-bottom: 1em" src="${musica.imagem}" width=auto height=150 class="card-img-top rounded-circle" alt="...">
+                            <img style="border-radius: 1em; margin-bottom: 1em" src="${musica.imagem}" width=auto height=150 class="card-img-top arredondar" alt="...">
                             ${buttonFavoritar}</img>
                             <p><strong>${musica.nome}</strong> • ${musica.artista}</p>
                         </div>`
