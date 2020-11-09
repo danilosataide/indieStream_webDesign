@@ -136,6 +136,10 @@
         }
     }
 
+    // $(window).on('load', function() {
+    //     alert('carregou');
+    // })
+
     function alteraFiltroGeneros(id){
         atualizaFiltroGeneros(id);
         // var x = location.protocol;
@@ -149,7 +153,16 @@
             document.location.reload(true);
         }
     }
-    
+
+  
     // const demoClasses = document.querySelectorAll('.sidebar-submenu');
     // console.log(demoClasses[0]);
+</script>
+
+<script type="text/javascript">
+    $(window).on('load', function () {
+        $('#preloader .inner').fadeOut();
+        $('#preloader').delay(350).fadeOut('slow'); 
+        $('body').delay(350).css({'overflow': 'visible'});
+    })
 </script>

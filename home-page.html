@@ -17,13 +17,19 @@
 </head>
 
 <body>
+    
     <div class="page-wrapper default-theme sidebar-bg bg1 toggled">
         <div id="sidebar-html"></div>
+        <div id="preloader-html"></div>
         
         <script>
             $( "#sidebar-html" ).load( "sidebar-html.html" );
         </script>
         
+        <script>
+            $( "#preloader-html" ).load( "preloader-html.html" );
+        </script>
+
         <!-- page-content  -->
         <main class="page-content pt-2">
 
@@ -34,10 +40,9 @@
             </script>
 
             <div id="overlay" class="overlay"></div>
+    
             <div class="container-fluid p-5">
                 <!-- COLOCAR CONTEUDO AQUI PARA BAIXO -->
-
-
                 <!-- <h1>MUSICAS AQUIII</h1> -->
 
                 <!-- Músicas filtradas por gênero e clima -->
@@ -282,7 +287,8 @@
     <script src="https://unpkg.com/wavesurfer.js"></script>
 
     <script>
-        
+         
+
         var wavesurfer = WaveSurfer.create({
             container: document.querySelector('#waveform'),
             scrollParent: false,
@@ -670,6 +676,8 @@
                 }
             }
         }
+
+        
 
     </script> 
 

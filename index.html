@@ -9,6 +9,7 @@
     <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
     
     <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <link rel="stylesheet" type="text/css" href="./css/preloader.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     <link 
@@ -20,7 +21,13 @@
     <title>IndieStream</title>
 </head>
 <body>  
-    <div class="container" >
+    <div id="preloader-html"></div>
+
+    <script>
+      $( "#preloader-html" ).load( "preloader-html.html" );
+    </script>
+
+    <div class="container">
 		<div class="row">
 			<div class="col-sm-9 col-md-7 col-lg-12 mx-auto" >
                 <div class="card card-signin my-5">
@@ -94,6 +101,14 @@
     <!-- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script type="text/javascript" src="js/form-logon.js"></script>
+
+    <script type="text/javascript">
+      $(window).on('load', function () {
+          $('#preloader .inner').fadeOut();
+          $('#preloader').delay(350).fadeOut('slow'); 
+          $('body').delay(350).css({'overflow': 'visible'});
+      })
+    </script>
 
 </body>
 </html>
