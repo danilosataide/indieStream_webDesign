@@ -27,7 +27,7 @@
                     <span>Ouvir Músicas</span>
                 </li>
                 <li>
-                    <a href="./home-page.html">
+                    <a href="javascript:alteraFiltroGeneros(0);">
                         <i><img src="./assets/heart.svg" alt=""></i>
                         <span class="menu-text">100% você</span>
                     </a>
@@ -126,13 +126,27 @@
                     quantidade = generos.data[i].qtde;
                 }
                 $(".categorias-generos").append(
-                    `<li>
-                        <a href="#">${generos.data[i].nome}
+                    `<li class="list-categorias-generos">
+                        <a onclick="alteraFiltroGeneros(${generos.data[i].id})">${generos.data[i].nome}
                             <span class="badge badge-pill badge-success">${quantidade}</span>    
                         </a>                    
                     </li>`
                 );
             }
+        }
+    }
+
+    function alteraFiltroGeneros(id){
+        atualizaFiltroGeneros(id);
+        // var x = location.protocol;
+        // var y = location.host;
+        // var w = location.pathname;
+        // var z = location.search;
+        // var url_atual = window.location.href;
+        if(location.pathname != "/home-page.html"){
+            window.location.href = '/home-page.html';
+        }else{
+            document.location.reload(true);
         }
     }
     

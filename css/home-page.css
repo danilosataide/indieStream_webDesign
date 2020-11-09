@@ -139,6 +139,10 @@ a.list-group-item:first-child {
     margin: 0 5px;
 }
 
+.list-categorias-generos{
+    cursor: pointer;
+}
+
 #waveform, #favoritePlayer {
     cursor: pointer;
 }

@@ -64,6 +64,7 @@ function logonAccount(){
     document.getElementById('inputPassword').value = '';
   } else
   {
+    localStorage.setItem('musicas_filtro_genero', JSON.stringify(0));
     $(location).attr('href', './home-page.html');
   }
 }

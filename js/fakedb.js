@@ -157,62 +157,77 @@ var dbfake_musicas_favoritos = {
 var dbfake_generos = {
     "data": [
         {
-        "nome":	"Todos",
+        "id": 0,
+        "nome":	"Todos os estilos",
         "qtde":	0,
         },
         {
+        "id": 1,
         "nome":	"Alternativo e punk",
         "qtde":	0,
         },
         {
+        "id": 2,
         "nome":	"Ambiente",
         "qtde":	0,
         }, 
         {
+        "id": 3,
         "nome":	"Infantil",
         "qtde":	0,
         }, 
         {
+        "id": 4,
         "nome":	"Trilha sonora de cinema",
         "qtde":	0,
         }, 
         {
+        "id": 5,
         "nome":	"Clássica",
         "qtde":	0,
         }, 
         {
+        "id": 6,
         "nome":	"Country e folk",
         "qtde":	0,
         }, 
         {
+        "id": 7,
         "nome":	"Dance e eletrônica",
         "qtde":	0,
         }, 
         {
+        "id": 8,
         "nome":	"Hip-Hop e rap",
         "qtde":	0,
         }, 
         {
+        "id": 9,
         "nome":	"Natalina",
         "qtde":	0,
         }, 
         {
+        "id": 10,
         "nome":	"Jazz e blues",
         "qtde":	0,
         }, 
         {
+        "id": 11,
         "nome":	"Pop",
         "qtde":	0,
         }, 
         {
+        "id": 12,
         "nome":	"R&B e soul",
         "qtde":	0,
         }, 
         {
+        "id": 13,
         "nome":	"Reggae",
         "qtde":	0,
         }, 
         {
+        "id": 14,
         "nome":	"Rock",
         "qtde":	0,
         }
@@ -224,8 +239,14 @@ var dbfake_generos = {
 var musicas_cadastradas = JSON.parse(localStorage.getItem('musicas_cadastradas'));
 var musicas_favoritos = JSON.parse(localStorage.getItem('musicas_favoritos'));
 var generos = JSON.parse(localStorage.getItem('generos'));
-
+var musicas_filtro_genero = JSON.parse(localStorage.getItem('musicas_filtro_genero'));
 // var db_favoritos_doUsuario = buscarFavoritosPeloUsuario();
+
+if (!musicas_filtro_genero || musicas_filtro_genero < 0) {
+    if(musicas_filtro_genero == null)
+        musicas_filtro_genero = 0;
+    localStorage.setItem('musicas_filtro_genero', JSON.stringify(musicas_filtro_genero));
+};
 
 if (!musicas_cadastradas || musicas_cadastradas.data == '') {
     musicas_cadastradas = dbfake
@@ -532,4 +553,17 @@ function atualizaGeneros() {
         }
     }
 
+}
+
+function buscarGeneroPorId(id){
+    generos = JSON.parse(localStorage.getItem('generos'));
+    let index = generos.data.map(obj => obj.id).indexOf(id);
+    return generos.data[index];
+}
+
+function atualizaFiltroGeneros(id){
+    if(id != null){
+        musicas_filtro_genero = id;
+        localStorage.setItem('musicas_filtro_genero', JSON.stringify(musicas_filtro_genero));
+    }
 }

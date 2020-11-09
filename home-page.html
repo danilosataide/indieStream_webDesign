@@ -433,7 +433,7 @@
             // The playlist links
             var links = document.querySelectorAll('#table-musicas-favoritas a#btnPlay');
             var currentTrack = 0;
-            console.log(links)
+            // console.log(links)
 
             // Load a track by index and highlight the corresponding link
             var setCurrentSong = function(index) {
@@ -630,28 +630,43 @@
         function exibeMusicas(){
             $(".teste").html("");
             // $('.teste').slick('slickAdd','<div><h3>' + slideIndex + '</h3></div>');
+            aux = false;
+            musicas_filtro_genero = JSON.parse(localStorage.getItem('musicas_filtro_genero'));
+            var genero_filtro = buscarGeneroPorId(musicas_filtro_genero);
             musicas_cadastradas = JSON.parse(localStorage.getItem('musicas_cadastradas'));
             if(musicas_cadastradas != null ){
-                $(".descricao_estilos").text(musicas_cadastradas.data.length + " músicas");
+                $(".descricao_estilos").text(genero_filtro.qtde + " músicas");
+                $(".title-grid-filtrados").text(genero_filtro.nome);
                 for (i = 0; i < musicas_cadastradas.data.length; i++) {
-                    let musica = musicas_cadastradas.data[i];
-                    let buttonFavoritar;
-                    if(verificarFavoritoUsuario(musica.id)){
-                        buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img id="favorite' + musica.id + '" src="../assets/star-fill.svg"></a>';                    
+                    if(genero_filtro.id == 0){
+                        aux = true;
                     }else{
-                        buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img id="favorite' + musica.id + '" src="../assets/star.svg"></a>';                    
+                        aux = false;
+                        if(musicas_cadastradas.data[i].genero == genero_filtro.nome && genero_filtro.id > 0){
+                            aux = true;
+                        }
                     }
-                    $(".teste").append(
-                        `<div class="track">
-                            
-                            <img style="border-radius: 1em; margin-bottom: 1em" src="${musica.imagem}" width=auto height=150 class="card-img-top arredondar" alt="...">
-                            ${buttonFavoritar}</img>
-                            <p><strong>${musica.nome}</strong> • ${musica.artista}</p>
-                        </div>`
-                    );
-                    // <a type="button" class="mr-1 rounded-lg">
-                    //             <img src="../assets/star.svg"></img>
-                    //         </a>
+                    
+                    if(aux){
+                        let musica = musicas_cadastradas.data[i];
+                        let buttonFavoritar;
+                        if(verificarFavoritoUsuario(musica.id)){
+                            buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img id="favorite' + musica.id + '" src="../assets/star-fill.svg"></a>';                    
+                        }else{
+                            buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img id="favorite' + musica.id + '" src="../assets/star.svg"></a>';                    
+                        }
+                        $(".teste").append(
+                            `<div class="track">
+                                
+                                <img style="border-radius: 1em; margin-bottom: 1em" src="${musica.imagem}" width=auto height=150 class="card-img-top arredondar" alt="...">
+                                ${buttonFavoritar}</img>
+                                <p><strong>${musica.nome}</strong> • ${musica.artista}</p>
+                            </div>`
+                        );
+                        // <a type="button" class="mr-1 rounded-lg">
+                        //             <img src="../assets/star.svg"></img>
+                        //         </a>
+                    }
                 }
             }
         }
