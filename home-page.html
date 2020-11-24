@@ -56,7 +56,6 @@
                     </div>
                 </div>
 
-
                 <div class="row mt-3">
                     <!-- Músicas favoritas -->
                     <div id="seus-favoritos" class="col-lg grid-favoritos pbshadow responsive">
@@ -118,15 +117,11 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div id="timeline">
-                            <span id="current-time">--:--</span>
-                            <span id="total-time">--:--</span>
-                        </div> -->
 
                         <div id="sub-controls">
                             <i id="skipBackward">
-                                <span id="">
-                                    <img src="./assets/skip-back.svg">
+                                <span id="" style="display: none;">
+                                    <img style="background-color: gray;" src="./assets/skip-back.svg">
                                 </span>
                             </i>
                             <i id="rewind">
@@ -134,7 +129,6 @@
                                     <img src="./assets/rewind.svg">
                                 </span>
                             </i>
-                            <!-- <i class="fa fa-refresh"></i> -->
                             <i id="playPause">
                                 <span id="play">
                                     <img src="./assets/play-circle.svg">
@@ -149,9 +143,9 @@
                                     <img src="./assets/fast-forward.svg">
                                 </span>
                             </i>
-                            <i id="skip-forward">
+                            <i id="skip-forward" style="display: none;">
                                 <span id="">
-                                    <img src="./assets/skip-forward.svg">
+                                    <img style="background-color: gray;" src="./assets/skip-forward.svg">
                                 </span>
                             </i>
                             <i id="toggleMute">
@@ -173,89 +167,9 @@
                                 </span>
                             </i>
                         </div>
-                        <!-- <div class="row" style="margin: 30px 0">
-                            <div class="col">
-                                <button class="btn btn-dark btn-block" id="skipBackward">
-                                    <span id="">
-                                        <img src="./assets/skip-back.svg">
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-dark btn-block" id="rewind">
-                                    <span id="">
-                                        <img src="./assets/rewind.svg">
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-success btn-block" id="playPause">
-                                    <span id="play">
-                                        <img src="./assets/play-circle.svg">
-                                    </span>
-        
-                                    <span id="pause" style="display: none">
-                                        <img src="./assets/pause-circle.svg">
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-dark btn-block" id="fast-forward">
-                                    <span id="">
-                                        <img src="./assets/fast-forward.svg">
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-dark btn-block" id="skip-forward">
-                                    <span id="">
-                                        <img src="./assets/skip-forward.svg">
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-dark btn-block" id="toggleMute">
-                                    <span id="volume-on">
-                                        <img src="./assets/volume-2.svg">
-                                    </span>
-        
-                                    <span id="volume-x" style="display: none">
-                                        <img src="./assets/volume-x.svg">
-                                    </span>
-                                </button>
-                            </div>
-                        </div> -->
                     </div>      
                 </div>
             </div>
-
-            <!-- <nav class="navbar sticky-top position-relative navbar-expand-sm navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">Bottom navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                    <li class="nav-item dropup">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropup</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown10">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    </ul>
-                </div>
-            </nav> -->
 
         </main>
         <!-- page-content" -->
@@ -274,8 +188,6 @@
     <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script> 
 
     <script src="js/main.js"></script>
     <script src="./js/fakedb.js"></script>
@@ -287,8 +199,6 @@
     <script src="https://unpkg.com/wavesurfer.js"></script>
 
     <script>
-         
-
         var wavesurfer = WaveSurfer.create({
             container: document.querySelector('#waveform'),
             scrollParent: false,
@@ -303,12 +213,6 @@
             height: 150,
             barGap: 2,
         });
-
-        // wavesurfer.load('./audio/Life After Death - DJ Freedem.mp3');
-        
-        // wavesurfer.on('ready', function () {
-        //     wavesurfer.play();
-        // });
 
         $(document).ready(function() {
             exibeMusicasFavoritas();
@@ -436,6 +340,7 @@
                 document.querySelector('#pause').style.display = 'none';
             });
 
+            
             // The playlist links
             var links = document.querySelectorAll('#table-musicas-favoritas a#btnPlay');
             var currentTrack = 0;
@@ -468,6 +373,7 @@
                 
                 // $("#table-musicas-favoritas a").addClass("active");
                 wavesurfer.load(links[currentTrack].href);
+                
             };
 
             // Load the track on click
@@ -499,49 +405,11 @@
 
             // Load the first track
             setCurrentSong(currentTrack);
-            
-            // $("#audioPlayer")[0].addEventListener("ended", function(){
-            //     currentSong++;
-            //     if(currentSong == $("#playlist li a").length)
-            //         currentSong = 0;
-            //     $("#playlist li").removeClass("current-song");
-            //     $("#playlist li:eq("+currentSong+")").addClass("current-song");
-            //     $("#audioPlayer")[0].src = $("#playlist li a")[currentSong].href;
-            //     $("#audioPlayer")[0].play();
-            // });
         });
 
         var dbtable = {
             "data": []
         }
-
-        // if(db_favoritos_doUsuario != null ){
-        //     console.log(db_favoritos_doUsuario.data.length)
-        //     for (i = 0; i < db_favoritos_doUsuario.data.length; i++) {
-        //         let musica = db_favoritos_doUsuario.data[i];
-        //         let buttonFavoritar = '<a id="btnFavoritar" onclick="favoritar(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img src="./assets/star.svg"></a>';
-        //         let buttonPlay = '<a id="btnPlay" onclick="play(' + musica.id + ')" value="' + musica.id + '" type="button" class="mr-1 rounded-lg"><img src="./assets/play.svg"></a>';
-                
-        //         let music = [ buttonFavoritar, musica.nome, musica.artista, musica.genero, buttonPlay ];
-        //         dbtable.data.push(music);
-        //         // console.log(dbtable.data)
-        //     }
-        // }
-        
-        // Intercepta o click do botão btnFavoritar
-        // $("#table-favoritos").on('click', '#btnFavoritar', function () {
-        //     alert('favoritar/desfavoritar')
-        //     let id =  $(this).parent().parent()[0].childNodes[0].firstChild.nodeValue;
-        //     // if (id == "") {
-        //     //     return;  
-        //     // }
-        // });
-
-        // $("#table-favoritos").on("click", "tr", "td", function (e) {
-        //         let id = this.childNodes[0].firstChild.nodeValue;
-        //         console.log(this.childNodes[0].firstChild.nodeValue);
-        //         alert(id)
-        // });
 
         function favoritar(id) {
             var url_image = $("#favorite"+id).attr('src');
@@ -563,47 +431,7 @@
                     alert("failed")
                     break;
             }
-            
         }
-
-        // $(document).ready(function() {
-            // $('#table-favoritos').DataTable({
-            //     "data": dbtable.data,
-            //     "scrollY": 250,
-            //     "scrollCollapse": true,
-            //     "paging": false,
-            //     "info": false,
-            //     "language": {
-            //         "search": "Filtrar",
-            //         "lengthMenu": "Display _MENU_ records per page",
-            //         "zeroRecords": "Você não possui nenhuma música favorita!",
-            //         "info": "Exibindo página _PAGE_ de _PAGES_",
-            //         "infoEmpty": "Nenhuma música disponível!",
-            //         "infoFiltered": "(filtered from _MAX_ total records)"
-            //     },
-            //     "columnDefs": [ 
-            //         {
-            //         "searchable": false,
-            //         "orderable": false,
-            //         "targets": 0
-            //         },
-            //         {
-            //         "orderable": false,
-            //         "targets": 1
-            //         },
-            //         {
-            //         "orderable": false,
-            //         "targets": 2
-            //         },
-            //         {
-            //         "orderable": false,
-            //         "targets": 3
-            //         } 
-            //     ],
-            //     "order": [[ 1, 'asc' ]]
-            // });
-            // exibeMusicasFavoritas();
-        // });
         
         function exibeMusicasFavoritas() {
             // Remove todas as linhas do corpo da tabela
@@ -669,9 +497,6 @@
                                 <p><strong>${musica.nome}</strong> • ${musica.artista}</p>
                             </div>`
                         );
-                        // <a type="button" class="mr-1 rounded-lg">
-                        //             <img src="../assets/star.svg"></img>
-                        //         </a>
                     }
                 }
             }
@@ -680,12 +505,6 @@
         
 
     </script> 
-
-    <!-- using local scripts -->
-    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
 </body>
 
 </html>
